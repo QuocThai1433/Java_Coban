@@ -1,4 +1,4 @@
-package com.example.demo.studentPK;
+package com.example.demo.student;
 
 public class Student {
 

@@ -1,4 +1,4 @@
-package com.example.demo.studentPK;
+package com.example.demo.student;
 
 import java.util.List;
 import java.util.Scanner;
@@ -20,7 +20,7 @@ public class StudentMain {
         String address = scanner.nextLine();
         System.out.println("Input classesId");
         int classesId = scanner.nextInt();
-        return new Student(id, name, age, address,classesId);
+        return new Student(id, name, age, address, classesId);
     }
 
     public static boolean checkExistId(int id) {
@@ -42,8 +42,9 @@ public class StudentMain {
     public static void Add() {
         var student = inputSV();
         //checkNumber(student.);
-        sinhVienDao.create(student);
-        System.out.println("Create successful");
+        if (sinhVienDao.create(student) != 0) {
+            System.out.println("Create successful");
+        }
     }
 
     public static void update() {

@@ -1,6 +1,5 @@
-package com.example.demo.classesPK;
+package com.example.demo.classes;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,10 +36,11 @@ public class ClassesMain {
         System.out.println("Delete Classes Successful");
     }
 
-    public static void getList (){
+    public static void getList() {
         List<Classes> classes = classsesDao.getList();
         System.out.println(classes.toString());
     }
+
     public static void menu() {
         System.out.println("1: Add Classes");
         System.out.println("2: Update Classes");

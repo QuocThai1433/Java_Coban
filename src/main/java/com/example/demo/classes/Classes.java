@@ -1,4 +1,4 @@
-package com.example.demo.classesPK;
+package com.example.demo.classes;
 
 public class Classes {
     int id;
@@ -16,6 +16,6 @@ public class Classes {
 
     @Override
     public String toString() {
-        return "id =" + id + ", classesname =" + classname;
+        return "id =" + id + ", classes name =" + classname;
     }
 }
