@@ -4,19 +4,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class ConnectDB {
-    static Connection conn = null;
+
+    private static final String PASSWORD = "FormosVN@123";
+    private static final String USERNAME = "root";
+    private static final String URL = "jdbc:mysql://localhost:3306/student_management";
 
     public static Connection getConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/qlsv";
-            String username = "root";
-            String password = "1234";
-            conn = DriverManager.getConnection(url, username, password);
+            return DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return null;
         }
-        return conn;
     }
 
     public static void main(String[] arg) {

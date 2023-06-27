@@ -1,54 +1,31 @@
-package com.example.demo.studentPK;
+package com.example.demo.student;
 
 import com.example.demo.ConnectDB;
-import com.example.demo.classesPK.Classes;
-import com.example.demo.studentPK.Student;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class StudentDao {
-    Connection connection = ConnectDB.getConnection();
-
-    public int create(Student student) {
-        int kq = 0;
-        String query = "INSERT INTO ttsv VALUE(?,?,?,?); ";
-        try {
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, student.id);
-            ps.setString(2, student.name);
-            ps.setInt(3, student.age);
-            ps.setString(4, student.address);
-            kq = ps.executeUpdate();
-            ps.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return kq;
-    }
-
-
     public List<Student> getList() {
         List<Student> studentList = new ArrayList<>();
-        String query = "select * from ttsv";
+        Connection connection = ConnectDB.getConnection();
+        if (connection == null) {
+            return studentList;
+        }
         try {
-
+            String query = "select * from ttsv";
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                int age = rs.getInt("age");
-                String address = rs.getString("address");
-                int classesId = rs.getInt("classesId");
-                Student student = new Student(id, name, age, address, classesId);
-                studentList.add(student);
+                studentList.add(
+                        studentMapper(rs)
+                );
             }
-
             ps.close();
             rs.close();
         } catch (Exception e) {
@@ -58,26 +35,24 @@ public class StudentDao {
     }
 
     public List<Student> getListCount(int ids) {
-
         List<Student> students = new ArrayList<>();
-        String query = "SELECT * FROM ttsv ORDER BY id ASC LIMIT ? ";
+        Connection connection = ConnectDB.getConnection();
+        if (connection == null) {
+            return students;
+        }
         try {
+            String query = "SELECT * FROM ttsv ORDER BY id ASC LIMIT ? ";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, ids);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                int age = rs.getInt("age");
-                String address = rs.getString("address");
-                int classesId = rs.getInt("classesId");
-                Student student = new Student(id, name, age, address,classesId);
-                students.add(student);
-
+                students.add(
+                        studentMapper(rs)
+                );
             }
             rs.close();
             ps.close();
-
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,30 +60,56 @@ public class StudentDao {
     }
 
     public Student getById(int aid) {
-        String query = "select * from ttsv where id =?";
+        Student student = null;
+        Connection connection = ConnectDB.getConnection();
+        if (connection == null) {
+            return student;
+        }
         try {
+            String query = "select * from ttsv where id = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, aid);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                int age = rs.getInt("age");
-                String address = rs.getString("address");
-                int classesId = rs.getInt("classesId");
-                Student student = new Student(id, name, age, address,classesId);
+            if (rs.next()) {
+                student = studentMapper(rs);
             }
             ps.close();
             rs.close();
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return student;
+    }
 
-        return null;
+    public int create(Student student) {
+        int result = 0;
+        Connection connection = ConnectDB.getConnection();
+        if (connection == null) {
+            return result;
+        }
+        try {
+            String query = "INSERT INTO ttsv VALUE(?,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, student.id);
+            ps.setString(2, student.name);
+            ps.setInt(3, student.age);
+            ps.setString(4, student.address);
+            result = ps.executeUpdate();
+            ps.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public int update(int c) {
-        int kq = 0;
+        int result = 0;
+        Connection connection = ConnectDB.getConnection();
+        if (connection == null) {
+            return result;
+        }
         Scanner scanner = new Scanner(System.in);
         Student student = new Student();
         try {
@@ -123,7 +124,7 @@ public class StudentDao {
                     System.out.print("Name = ");
                     String name = scanner.nextLine();
                     ps1.setString(1, name);
-                    kq = ps1.executeUpdate();
+                    result = ps1.executeUpdate();
                     ps1.close();
                     break;
                 }
@@ -137,7 +138,7 @@ public class StudentDao {
                     System.out.print("Age = ");
                     int age = scanner.nextInt();
                     ps2.setInt(1, age);
-                    kq = ps2.executeUpdate();
+                    result = ps2.executeUpdate();
                     ps2.close();
                     break;
                 }
@@ -145,13 +146,13 @@ public class StudentDao {
                     String query3 = "UPDATE ttsv  SET address= ? WHERE ID = ?";
                     PreparedStatement ps3 = connection.prepareStatement(query3);
                     System.out.print("ID = ");
-                    int id  = scanner.nextInt();
+                    int id = scanner.nextInt();
                     scanner.nextLine();
                     ps3.setInt(2, id);
                     System.out.print("Address =");
                     String address = scanner.nextLine();
                     ps3.setString(1, address);
-                    kq = ps3.executeUpdate();
+                    result = ps3.executeUpdate();
                     ps3.close();
                     break;
                 }
@@ -159,7 +160,7 @@ public class StudentDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return kq;
+        return result;
     }
 
 
@@ -188,14 +189,13 @@ public class StudentDao {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, ids);
             ResultSet rs = ps.executeQuery();
-            while (rs.next())
-            {
+            while (rs.next()) {
                 int classesId = rs.getInt("classesId");
-                int  id = rs.getInt("id");
-                String name= rs.getString("name");
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
                 int age = rs.getInt("age");
                 String address = rs.getString("address");
-                Student student = new Student(id,name,age,address, classesId);
+                Student student = new Student(id, name, age, address, classesId);
                 studentList.add(student);
             }
             rs.close();
@@ -207,6 +207,12 @@ public class StudentDao {
         return studentList;
     }
 
-
-
+    private Student studentMapper(ResultSet rs) throws SQLException {
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        int age = rs.getInt("age");
+        String address = rs.getString("address");
+        int classesId = rs.getInt("classesId");
+        return new Student(id, name, age, address, classesId);
+    }
 }

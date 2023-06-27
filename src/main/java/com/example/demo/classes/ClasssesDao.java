@@ -1,4 +1,4 @@
-package com.example.demo.classesPK;
+package com.example.demo.classes;
 
 import com.example.demo.ConnectDB;
 
