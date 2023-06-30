@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class StudentDao {
     Connection connection = ConnectDB.getConnection();
@@ -69,7 +69,7 @@ public class StudentDao {
                 int age = rs.getInt("age");
                 String address = rs.getString("address");
                 int classesId = rs.getInt("classesId");
-                Student student = new Student(id, name, age, address,classesId);
+                Student student = new Student(id, name, age, address, classesId);
                 students.add(student);
 
             }
@@ -94,7 +94,8 @@ public class StudentDao {
                 int age = rs.getInt("age");
                 String address = rs.getString("address");
                 int classesId = rs.getInt("classesId");
-                Student student = new Student(id, name, age, address,classesId);
+                Student student = new Student(id, name, age, address, classesId);
+                return student;
             }
             ps.close();
             rs.close();
@@ -105,60 +106,28 @@ public class StudentDao {
         return null;
     }
 
-    public int update(int c) {
+    public int update(Student student) {
         int kq = 0;
-        Scanner scanner = new Scanner(System.in);
-        Student student = new Student();
+
         try {
-            switch (c) {
-                case 1: {
-                    String query1 = "UPDATE student  SET name = ? WHERE ID = ?";
-                    PreparedStatement ps1 = connection.prepareStatement(query1);
-                    System.out.print("ID = ");
-                    int id = scanner.nextInt();
-                    scanner.nextLine();
-                    ps1.setInt(2, id);
-                    System.out.print("Name = ");
-                    String name = scanner.nextLine();
-                    ps1.setString(1, name);
-                    kq = ps1.executeUpdate();
-                    ps1.close();
-                    break;
-                }
-                case 2: {
-                    String query2 = "UPDATE student  SET age = ? WHERE ID = ?";
-                    PreparedStatement ps2 = connection.prepareStatement(query2);
-                    System.out.print("ID = ");
-                    int id = scanner.nextInt();
-                    scanner.nextLine();
-                    ps2.setInt(2, id);
-                    System.out.print("Age = ");
-                    int age = scanner.nextInt();
-                    ps2.setInt(1, age);
-                    kq = ps2.executeUpdate();
-                    ps2.close();
-                    break;
-                }
-                case 3: {
-                    String query3 = "UPDATE student  SET address= ? WHERE ID = ?";
-                    PreparedStatement ps3 = connection.prepareStatement(query3);
-                    System.out.print("ID = ");
-                    int id  = scanner.nextInt();
-                    scanner.nextLine();
-                    ps3.setInt(2, id);
-                    System.out.print("Address =");
-                    String address = scanner.nextLine();
-                    ps3.setString(1, address);
-                    kq = ps3.executeUpdate();
-                    ps3.close();
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            String query = "UPDATE student  SET Name =? , Age=?, Address=? WHERE ID = ? ";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(4, student.getId());
+            ps.setString(1, student.getName());
+            ps.setInt(2, student.getAge());
+            ps.setString(3, student.getAddress());
+            kq = ps.executeUpdate();
+            ps.close();
+
         }
-        return kq;
+     catch(
+    Exception e)
+
+    {
+        e.printStackTrace();
     }
+        return kq;
+}
 
 
     public int delete(int id) {
@@ -186,14 +155,13 @@ public class StudentDao {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, ids);
             ResultSet rs = ps.executeQuery();
-            while (rs.next())
-            {
+            while (rs.next()) {
                 int classesId = rs.getInt("classesId");
-                int  id = rs.getInt("id");
-                String name= rs.getString("name");
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
                 int age = rs.getInt("age");
                 String address = rs.getString("address");
-                Student student = new Student(id,name,age,address, classesId);
+                Student student = new Student(id, name, age, address, classesId);
                 studentList.add(student);
             }
             rs.close();
@@ -204,7 +172,6 @@ public class StudentDao {
         }
         return studentList;
     }
-
 
 
 }

@@ -1,5 +1,7 @@
 package com.example.demo.studentpk;
 
+import com.fasterxml.classmate.AnnotationInclusion;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,20 +9,51 @@ public class StudentMain {
     static Scanner scanner = new Scanner(System.in);
     static StudentDao studentDao = new StudentDao();
 
+    static StudentService studentService = new StudentService();
+
+
+
+    public static void checkCharacters(String name){
+        do
+        {
+            System.out.println("Name cannot exceed 50 characters!! Please input again: ");
+            name = scanner.nextLine();
+
+        }while (name.length()>10);
+
+    }
+
+
+    public static void checkAge(int age){
+        do {
+            System.out.println("Age not more than 200!! Please input again:");
+            age = scanner.nextInt();
+            scanner.nextLine();
+
+        }while (age>=200);
+    }
+
+
     public static Student inputSV() {
         System.out.println("Input id:");
         int id = scanner.nextInt();
         scanner.nextLine();
+
         System.out.println("Input name: ");
         String name = scanner.nextLine();
+        checkCharacters(name);
+
+
+
         System.out.println("Input age");
         int age = scanner.nextInt();
         scanner.nextLine();
+        checkAge(age);
         System.out.println("Input address");
         String address = scanner.nextLine();
         System.out.println("Input classesId");
         int classesId = scanner.nextInt();
-        return new Student(id, name, age, address,classesId);
+        return new Student(id, name, age, address, classesId);
     }
 
     public static boolean checkExistId(int id) {
@@ -40,20 +73,27 @@ public class StudentMain {
 
 
     public static void Add() {
-        var student = inputSV();
+        Student student = inputSV();
         //checkNumber(student.);
         studentDao.create(student);
         System.out.println("Create successful");
     }
 
     public static void update() {
+        System.out.println("Input id Student: ");
+        int id = scanner.nextInt();
+        Student student = studentDao.getById(id);
         System.out.println("Your Select: ");
         System.out.println("1 name:");
         System.out.println("2 age:");
         System.out.println("3 address:");
-        int id = scanner.nextInt();
-        studentDao.update(id);
-
+        int choose = scanner.nextInt();
+        student = studentService.updateChoose(student, choose); // chỗ này truyền j astud e/// e cần gì thì truyền dô
+        studentDao.update(student);
+        // 1. GetById mình sẽ có một thằng student
+        // 2. Chọn thuộc tính ào sửa thì Student set thuc tính đó, set xong hết rồi thì gọi hàm dưới
+        // có thêm option cho người dùng muốn sửa nhiều thuộc tính
+        // 3. Call Dao for Update
     }
 
     public static void delete() {
