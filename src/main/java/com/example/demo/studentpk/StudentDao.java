@@ -1,8 +1,6 @@
-package com.example.demo.studentPK;
+package com.example.demo.studentpk;
 
 import com.example.demo.ConnectDB;
-import com.example.demo.classesPK.Classes;
-import com.example.demo.studentPK.Student;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,13 +14,13 @@ public class StudentDao {
 
     public int create(Student student) {
         int kq = 0;
-        String query = "INSERT INTO ttsv VALUE(?,?,?,?); ";
+        String query = "INSERT INTO student VALUE(?,?,?,?); ";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, student.id);
-            ps.setString(2, student.name);
-            ps.setInt(3, student.age);
-            ps.setString(4, student.address);
+            ps.setInt(1, student.getId());
+            ps.setString(2, student.getName());
+            ps.setInt(3, student.getAge());
+            ps.setString(4, student.getAddress());
             kq = ps.executeUpdate();
             ps.close();
         } catch (Exception e) {
@@ -34,7 +32,7 @@ public class StudentDao {
 
     public List<Student> getList() {
         List<Student> studentList = new ArrayList<>();
-        String query = "select * from ttsv";
+        String query = "select * from student";
         try {
 
             PreparedStatement ps = connection.prepareStatement(query);
@@ -60,7 +58,7 @@ public class StudentDao {
     public List<Student> getListCount(int ids) {
 
         List<Student> students = new ArrayList<>();
-        String query = "SELECT * FROM ttsv ORDER BY id ASC LIMIT ? ";
+        String query = "SELECT * FROM student ORDER BY id ASC LIMIT ? ";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, ids);
@@ -85,7 +83,7 @@ public class StudentDao {
     }
 
     public Student getById(int aid) {
-        String query = "select * from ttsv where id =?";
+        String query = "select * from student where id =?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, aid);
@@ -114,7 +112,7 @@ public class StudentDao {
         try {
             switch (c) {
                 case 1: {
-                    String query1 = "UPDATE ttsv  SET name = ? WHERE ID = ?";
+                    String query1 = "UPDATE student  SET name = ? WHERE ID = ?";
                     PreparedStatement ps1 = connection.prepareStatement(query1);
                     System.out.print("ID = ");
                     int id = scanner.nextInt();
@@ -128,7 +126,7 @@ public class StudentDao {
                     break;
                 }
                 case 2: {
-                    String query2 = "UPDATE ttsv  SET age = ? WHERE ID = ?";
+                    String query2 = "UPDATE student  SET age = ? WHERE ID = ?";
                     PreparedStatement ps2 = connection.prepareStatement(query2);
                     System.out.print("ID = ");
                     int id = scanner.nextInt();
@@ -142,7 +140,7 @@ public class StudentDao {
                     break;
                 }
                 case 3: {
-                    String query3 = "UPDATE ttsv  SET address= ? WHERE ID = ?";
+                    String query3 = "UPDATE student  SET address= ? WHERE ID = ?";
                     PreparedStatement ps3 = connection.prepareStatement(query3);
                     System.out.print("ID = ");
                     int id  = scanner.nextInt();
@@ -166,7 +164,7 @@ public class StudentDao {
     public int delete(int id) {
 
         int kq = 0;
-        String query = " DELETE FROM ttsv WHERE ID = ?;";
+        String query = " DELETE FROM student WHERE ID = ?;";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
@@ -183,7 +181,7 @@ public class StudentDao {
     public List<Student> getListByClasses(int ids) {
         List<Student> studentList = new ArrayList<>();
 
-        String query = "SELECT * FROM ttsv t, classes c where c.id= t.classesId and t.classesId=?";
+        String query = "SELECT * FROM student t, classes c where c.id= t.classesId and t.classesId=?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, ids);

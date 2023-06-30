@@ -1,11 +1,11 @@
-package com.example.demo.studentPK;
+package com.example.demo.studentpk;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class StudentMain {
     static Scanner scanner = new Scanner(System.in);
-    static StudentDao sinhVienDao = new StudentDao();
+    static StudentDao studentDao = new StudentDao();
 
     public static Student inputSV() {
         System.out.println("Input id:");
@@ -24,7 +24,7 @@ public class StudentMain {
     }
 
     public static boolean checkExistId(int id) {
-        var student = sinhVienDao.getById(id);
+        var student = studentDao.getById(id);
         if (student != null)
             return true;
         return false;
@@ -32,7 +32,7 @@ public class StudentMain {
 
     public static boolean checkNumber(int id) {
 
-        var student = sinhVienDao.getById(id);
+        var student = studentDao.getById(id);
         if (student != null)
             return true;
         return false;
@@ -42,7 +42,7 @@ public class StudentMain {
     public static void Add() {
         var student = inputSV();
         //checkNumber(student.);
-        sinhVienDao.create(student);
+        studentDao.create(student);
         System.out.println("Create successful");
     }
 
@@ -52,21 +52,21 @@ public class StudentMain {
         System.out.println("2 age:");
         System.out.println("3 address:");
         int id = scanner.nextInt();
-        sinhVienDao.update(id);
+        studentDao.update(id);
 
     }
 
     public static void delete() {
         System.out.println("Input id Student:");
         int id = scanner.nextInt();
-        sinhVienDao.delete(id);
+        studentDao.delete(id);
         System.out.println("Delete successful");
     }
 
     public static void getById() {
         System.out.println("Input id Student: ");
         int id = scanner.nextInt();
-        Student student = sinhVienDao.getById(id);
+        Student student = studentDao.getById(id);
         System.out.println(student.toString());
 
     }
@@ -87,21 +87,21 @@ public class StudentMain {
     }
 
     public static void getList() {
-        List<Student> students = sinhVienDao.getList();
+        List<Student> students = studentDao.getList();
         System.out.println(students.toString());
     }
 
     public static void getListCout() {
         System.out.println("Input list SV: ");
         int list = scanner.nextInt();
-        List<Student> student = sinhVienDao.getListCount(list);
+        List<Student> student = studentDao.getListCount(list);
         System.out.println(student.toString());
     }
 
     public static void getListByClasses() {
         System.out.println("Input list SV: ");
         int list = scanner.nextInt();
-        List<Student> student = sinhVienDao.getListByClasses(list);
+        List<Student> student = studentDao.getListByClasses(list);
         System.out.println(student.toString());
     }
 

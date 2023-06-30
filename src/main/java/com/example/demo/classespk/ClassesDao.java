@@ -1,6 +1,7 @@
 package com.example.demo.classesPK;
 
 import com.example.demo.ConnectDB;
+import com.example.demo.classespk.Classes;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,38 +9,38 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClasssesDao {
+public class ClassesDao {
     Connection connection = ConnectDB.getConnection();
 
     public int create(Classes classes) {
-        int kq = 0;
+        int result = 0;
         try {
             String query = "Insert into classes value( ? ,?)";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, classes.id);
-            ps.setString(2, classes.classname);
-            kq = ps.executeUpdate();
+            ps.setInt(1, classes.getId());
+            ps.setString(2, classes.getClassname());
+            result = ps.executeUpdate();
             ps.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return kq;
+        return result;
     }
 
     public int update(Classes classes) {
-        int kq = 0;
+        int result = 0;
         //   Classes classes = new Classes();
         String query = "Update classes set classesname = ? where id =?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(2, classes.id);
-            ps.setString(1, classes.classname);
-            kq = ps.executeUpdate();
+            ps.setInt(2, classes.getId());
+            ps.setString(1, classes.getClassname());
+            result = ps.executeUpdate();
             ps.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return kq;
+        return result;
     }
 
     public List<Classes> getList() {
@@ -65,16 +66,16 @@ public class ClasssesDao {
     }
 
     public int delete(int id) {
-        int kq = 0;
+        int result = 0;
         String query = "delete from classes where id =?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
-            kq = ps.executeUpdate();
+            result = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return kq;
+        return result;
     }
 
 

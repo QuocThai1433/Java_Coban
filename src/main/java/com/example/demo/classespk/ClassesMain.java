@@ -1,11 +1,10 @@
-package com.example.demo.classesPK;
+package com.example.demo.classespk;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
 public class ClassesMain {
-    static ClasssesDao classsesDao = new ClasssesDao();
+    static com.example.demo.classesPK.ClassesDao classsesDao = new com.example.demo.classesPK.ClassesDao();
     static Scanner scanner = new Scanner(System.in);
 
     public static Classes inputClasses() {
@@ -49,7 +48,6 @@ public class ClassesMain {
     }
 
     public static void main(String arg[]) {
-        System.out.println("");
         menu();
         int chon = scanner.nextInt();
 

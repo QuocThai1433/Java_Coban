@@ -1,11 +1,27 @@
-package com.example.demo.classesPK;
+package com.example.demo.classespk;
 
 public class Classes {
-    int id;
-    String classname;
+    private int id;
+    private String classname;
 
     public Classes() {
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getClassname() {
+        return classname;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setClassname(String classname) {
+        this.classname = classname;
     }
 
     public Classes(int id, String classname) {
