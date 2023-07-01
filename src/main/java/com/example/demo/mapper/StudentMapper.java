@@ -1,4 +1,6 @@
-package com.example.demo.student;
+package com.example.demo.mapper;
+
+import com.example.demo.entity.Student;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

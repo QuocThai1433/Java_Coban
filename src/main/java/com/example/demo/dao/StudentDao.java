@@ -1,6 +1,8 @@
-package com.example.demo.student;
+package com.example.demo.dao;
 
-import com.example.demo.ConnectDB;
+import com.example.demo.connection.ConnectDB;
+import com.example.demo.entity.Student;
+import com.example.demo.mapper.StudentMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -135,19 +137,21 @@ public class StudentDao {
 
 
     public int delete(int id) {
-
-        int kq = 0;
-//        String query = " DELETE FROM ttsv WHERE ID = ?;";
-//        try {
-//            PreparedStatement ps = connection.prepareStatement(query);
-//            ps.setInt(1, id);
-//            kq = ps.executeUpdate();
-//            ps.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//
-//        }
-        return kq;
+        int result = 0;
+        Connection connection = ConnectDB.getConnection();
+        if (connection == null) {
+            return result;
+        }
+        try {
+            String query = " delete from srudent where id = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            result = ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 

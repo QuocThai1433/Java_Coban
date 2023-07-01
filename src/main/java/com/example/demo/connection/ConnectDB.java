@@ -1,10 +1,9 @@
-package com.example.demo;
+package com.example.demo.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class ConnectDB {
-
     private static final String PASSWORD = "FormosVN@123";
     private static final String USERNAME = "root";
     private static final String URL = "jdbc:mysql://localhost:3306/student_management";
