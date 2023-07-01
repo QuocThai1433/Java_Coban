@@ -5,6 +5,9 @@ import java.util.Scanner;
 public class InputUtils {
     private static final Scanner scanner = new Scanner(System.in);
 
+    InputUtils() {
+    }
+
     public static int inputNumber() {
         int count = 1;
         while (count <= 3) {

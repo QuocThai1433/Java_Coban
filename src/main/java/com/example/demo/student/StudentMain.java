@@ -46,7 +46,7 @@ public class StudentMain {
         System.out.println("2 age:");
         System.out.println("3 address:");
         int id = scanner.nextInt();
-        sinhVienDao.update(id);
+//        sinhVienDao.update(id);
     }
 
     public static void delete() {
@@ -82,7 +82,7 @@ public class StudentMain {
     public static void getListCout() {
         System.out.println("Input list SV: ");
         int list = scanner.nextInt();
-        List<Student> student = sinhVienDao.getListCount(list);
+        List<Student> student = sinhVienDao.getListByLimit(list);
         System.out.println(student.toString());
     }
 

@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class StudentDao {
     private static StudentDao instance = null;
@@ -42,16 +41,16 @@ public class StudentDao {
         return studentList;
     }
 
-    public List<Student> getListCount(int ids) {
+    public List<Student> getListByLimit(int limit) {
         List<Student> students = new ArrayList<>();
         Connection connection = ConnectDB.getConnection();
         if (connection == null) {
             return students;
         }
         try {
-            String query = "SELECT * FROM ttsv ORDER BY id ASC LIMIT ? ";
+            String query = "select * from student limit ?";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, ids);
+            ps.setInt(1, limit);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 students.add(
@@ -97,12 +96,12 @@ public class StudentDao {
             return result;
         }
         try {
-            String query = "INSERT INTO ttsv VALUE(?,?,?,?)";
+            String query = "insert into student (name, age, address, classes_id) values (?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, student.getId());
-            ps.setString(2, student.getName());
-            ps.setInt(3, student.getAge());
-            ps.setString(4, student.getAddress());
+            ps.setString(1, student.getName());
+            ps.setInt(2, student.getAge());
+            ps.setString(3, student.getAddress());
+            ps.setObject(4, student.getClassesId());
             result = ps.executeUpdate();
             ps.close();
             connection.close();
@@ -112,58 +111,22 @@ public class StudentDao {
         return result;
     }
 
-    public int update(int c) {
+    public int update(Integer id, Student student) {
         int result = 0;
         Connection connection = ConnectDB.getConnection();
         if (connection == null) {
             return result;
         }
-        Scanner scanner = new Scanner(System.in);
         try {
-            switch (c) {
-                case 1: {
-                    String query1 = "UPDATE ttsv  SET name = ? WHERE ID = ?";
-                    PreparedStatement ps1 = connection.prepareStatement(query1);
-                    System.out.print("ID = ");
-                    int id = scanner.nextInt();
-                    scanner.nextLine();
-                    ps1.setInt(2, id);
-                    System.out.print("Name = ");
-                    String name = scanner.nextLine();
-                    ps1.setString(1, name);
-                    result = ps1.executeUpdate();
-                    ps1.close();
-                    break;
-                }
-                case 2: {
-                    String query2 = "UPDATE ttsv  SET age = ? WHERE ID = ?";
-                    PreparedStatement ps2 = connection.prepareStatement(query2);
-                    System.out.print("ID = ");
-                    int id = scanner.nextInt();
-                    scanner.nextLine();
-                    ps2.setInt(2, id);
-                    System.out.print("Age = ");
-                    int age = scanner.nextInt();
-                    ps2.setInt(1, age);
-                    result = ps2.executeUpdate();
-                    ps2.close();
-                    break;
-                }
-                case 3: {
-                    String query3 = "UPDATE ttsv  SET address= ? WHERE ID = ?";
-                    PreparedStatement ps3 = connection.prepareStatement(query3);
-                    System.out.print("ID = ");
-                    int id = scanner.nextInt();
-                    scanner.nextLine();
-                    ps3.setInt(2, id);
-                    System.out.print("Address =");
-                    String address = scanner.nextLine();
-                    ps3.setString(1, address);
-                    result = ps3.executeUpdate();
-                    ps3.close();
-                    break;
-                }
-            }
+            String query = "update student set name = ?, age = ?, address = ? where id = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, student.getName());
+            ps.setInt(2, student.getAge());
+            ps.setString(3, student.getAddress());
+            ps.setInt(4, id);
+            result = ps.executeUpdate();
+            ps.close();
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

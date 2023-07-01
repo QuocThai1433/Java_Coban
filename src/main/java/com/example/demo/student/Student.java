@@ -2,21 +2,21 @@ package com.example.demo.student;
 
 public class Student {
 
-    private int id;
+    private Integer id;
 
     private String name;
 
-    private int age;
+    private Integer age;
 
     private String address;
 
-    private int classesId;
+    private Integer classesId;
 
     public String toString() {
         return "id = " + id + ", fullName = " + name + ", age = " + age + ", address = " + address + ", classesId = " + classesId;
     }
 
-    public Student(int id, String name, int age, String address, int classesId) {
+    public Student(Integer id, String name, Integer age, String address, Integer classesId) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -24,14 +24,20 @@ public class Student {
         this.classesId = classesId;
     }
 
+    public Student(String name, Integer age, String address) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+    }
+
     public Student() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -43,11 +49,11 @@ public class Student {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -59,7 +65,7 @@ public class Student {
         this.address = address;
     }
 
-    public int getClassesId() {
+    public Integer getClassesId() {
         return classesId;
     }
 
