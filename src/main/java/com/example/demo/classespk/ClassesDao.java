@@ -1,7 +1,6 @@
-package com.example.demo.classesPK;
+package com.example.demo.classespk;
 
-import com.example.demo.ConnectDB;
-import com.example.demo.classespk.Classes;
+import com.example.demo.studentpk.ConnectDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +28,6 @@ public class ClassesDao {
 
     public int update(Classes classes) {
         int result = 0;
-        //   Classes classes = new Classes();
         String query = "Update classes set classesname = ? where id =?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);

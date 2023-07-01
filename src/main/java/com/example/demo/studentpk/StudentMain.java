@@ -1,7 +1,5 @@
 package com.example.demo.studentpk;
 
-import com.fasterxml.classmate.AnnotationInclusion;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,9 +14,10 @@ public class StudentMain {
     public static void checkCharacters(String name){
         do
         {
-            System.out.println("Name cannot exceed 50 characters!! Please input again: ");
-            name = scanner.nextLine();
-
+            if(name.length()>10) {
+                System.out.println("Name cannot exceed 10 characters!! Please input again: ");
+                name = scanner.nextLine();
+            }
         }while (name.length()>10);
 
     }
@@ -26,9 +25,13 @@ public class StudentMain {
 
     public static void checkAge(int age){
         do {
-            System.out.println("Age not more than 200!! Please input again:");
-            age = scanner.nextInt();
-            scanner.nextLine();
+            if(age>=200)
+            {
+                System.out.println("Age not more than 200!! Please input again:");
+                age = scanner.nextInt();
+                scanner.nextLine();
+            }
+
 
         }while (age>=200);
     }
@@ -38,12 +41,9 @@ public class StudentMain {
         System.out.println("Input id:");
         int id = scanner.nextInt();
         scanner.nextLine();
-
         System.out.println("Input name: ");
         String name = scanner.nextLine();
         checkCharacters(name);
-
-
 
         System.out.println("Input age");
         int age = scanner.nextInt();
@@ -51,9 +51,13 @@ public class StudentMain {
         checkAge(age);
         System.out.println("Input address");
         String address = scanner.nextLine();
+        System.out.println("Input mark");
+        float mark = scanner.nextFloat();
+        scanner.nextLine();
         System.out.println("Input classesId");
         int classesId = scanner.nextInt();
-        return new Student(id, name, age, address, classesId);
+
+        return new Student(id, name, age, address,mark, classesId);
     }
 
     public static boolean checkExistId(int id) {
@@ -72,9 +76,9 @@ public class StudentMain {
     }
 
 
-    public static void Add() {
+    public static void add() {
         Student student = inputSV();
-        //checkNumber(student.);
+
         studentDao.create(student);
         System.out.println("Create successful");
     }
@@ -107,7 +111,15 @@ public class StudentMain {
         System.out.println("Input id Student: ");
         int id = scanner.nextInt();
         Student student = studentDao.getById(id);
-        System.out.println(student.toString());
+        System.out.println(student.toString1());
+
+    }
+
+    public static void getMaxMark() {
+        System.out.println("Input Class: ");
+        int classesid = scanner.nextInt();
+        Student student = studentDao.getMaxMark(classesid);
+        System.out.println(student.toString1());
 
     }
 
@@ -119,10 +131,8 @@ public class StudentMain {
         System.out.println("4.Add student");
         System.out.println("5.Update student");
         System.out.println("6.Delete Student");
-
-//        System.out.println("Menu");
-//        System.out.println("Menu");
-
+        System.out.println("7.Get List Count Student");
+        System.out.println("8.Get Student Max Mark Class");
 
     }
 
@@ -165,7 +175,7 @@ public class StudentMain {
                 break;
             case 4:
                 System.out.println("Add Student");
-                Add();
+                add();
                 break;
             case 5:
                 System.out.println("Update Student ");
@@ -178,7 +188,12 @@ public class StudentMain {
             case 7:
                 System.out.println("Get List Student By Class");
                 getListByClasses();
+                break;
             case 8:
+                System.out.println("Get Student Max Mark");
+                getMaxMark();
+                break;
+            case 9:
             default:
         }
 

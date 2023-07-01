@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ClassesMain {
-    static com.example.demo.classesPK.ClassesDao classsesDao = new com.example.demo.classesPK.ClassesDao();
+    static ClassesDao classesDao = new ClassesDao();
     static Scanner scanner = new Scanner(System.in);
 
     public static Classes inputClasses() {
@@ -19,25 +19,25 @@ public class ClassesMain {
 
     public static void addClasses() {
         Classes classes = inputClasses();
-        classsesDao.create(classes);
+        classesDao.create(classes);
         System.out.println("Add Classes Successful");
     }
 
     public static void updateClasses() {
         Classes classes = inputClasses();
-        classsesDao.update(classes);
+        classesDao.update(classes);
         System.out.println("Update Classes Successful");
     }
 
     public static void delete() {
         System.out.println("Input id Student:");
         int id = scanner.nextInt();
-        classsesDao.delete(id);
+        classesDao.delete(id);
         System.out.println("Delete Classes Successful");
     }
 
     public static void getList (){
-        List<Classes> classes = classsesDao.getList();
+        List<Classes> classes = classesDao.getList();
         System.out.println(classes.toString());
     }
     public static void menu() {
@@ -47,7 +47,7 @@ public class ClassesMain {
         System.out.println("4: GetList Classes");
     }
 
-    public static void main(String arg[]) {
+    public static void main(String []arg) {
         menu();
         int chon = scanner.nextInt();
 
@@ -64,6 +64,8 @@ public class ClassesMain {
             case 4:
                 getList();
                 break;
+            case 5:
+            default:
         }
     }
 

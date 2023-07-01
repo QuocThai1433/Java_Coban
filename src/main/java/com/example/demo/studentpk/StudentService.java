@@ -1,6 +1,4 @@
 package com.example.demo.studentpk;
-
-import java.sql.PreparedStatement;
 import java.util.Scanner;
 
 public class StudentService {
@@ -30,7 +28,13 @@ public class StudentService {
                   student.setName(address);
                   break;
               }
-              case 4:
+              case 4: {
+                  System.out.print("Mark = ");
+                  float mark = scanner.nextFloat();
+                  student.setMark(mark);
+                  break;
+              }
+              case 5:
               default:
           }
       }while (choose >= 1 && choose<=4);
