@@ -25,23 +25,16 @@ public class StudentMain {
 
     public static boolean checkExistId(int id) {
         var student = sinhVienDao.getById(id);
-        if (student != null)
-            return true;
-        return false;
+        return student != null;
     }
 
     public static boolean checkNumber(int id) {
-
         var student = sinhVienDao.getById(id);
-        if (student != null)
-            return true;
-        return false;
+        return student != null;
     }
 
-
-    public static void Add() {
-        var student = inputSV();
-        //checkNumber(student.);
+    public static void add() {
+        Student student = inputSV();
         if (sinhVienDao.create(student) != 0) {
             System.out.println("Create successful");
         }
@@ -54,7 +47,6 @@ public class StudentMain {
         System.out.println("3 address:");
         int id = scanner.nextInt();
         sinhVienDao.update(id);
-
     }
 
     public static void delete() {
@@ -80,11 +72,6 @@ public class StudentMain {
         System.out.println("4.Add student");
         System.out.println("5.Update student");
         System.out.println("6.Delete Student");
-
-//        System.out.println("Menu");
-//        System.out.println("Menu");
-
-
     }
 
     public static void getList() {
@@ -109,7 +96,7 @@ public class StudentMain {
 
     public static void main(String[] args) {
         menu();
-        int select = 0;
+        int select;
         select = scanner.nextInt();
         switch (select) {
             case 1:
@@ -126,7 +113,7 @@ public class StudentMain {
                 break;
             case 4:
                 System.out.println("Add Student");
-                Add();
+                add();
                 break;
             case 5:
                 System.out.println("Update Student ");
@@ -139,8 +126,9 @@ public class StudentMain {
             case 7:
                 System.out.println("Get List Student By Class");
                 getListByClasses();
-            case 8:
+                break;
             default:
+                break;
         }
 
     }

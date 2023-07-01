@@ -2,32 +2,68 @@ package com.example.demo.student;
 
 public class Student {
 
-    int id;
-    String name;
+    private int id;
 
-    int age;
+    private String name;
 
-    String address;
+    private int age;
 
-    int classesid;
+    private String address;
+
+    private int classesId;
+
+    public String toString() {
+        return "id = " + id + ", fullName = " + name + ", age = " + age + ", address = " + address + ", classesId = " + classesId;
+    }
+
+    public Student(int id, String name, int age, String address, int classesId) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.classesId = classesId;
+    }
 
     public Student() {
     }
 
-    public Student(int id, String hoten, int tuoi, String lop, int classesId) {
-        super();
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
-        this.name = hoten;
-        this.age = tuoi;
-        this.address = lop;
-        this.classesid = classesId;
     }
 
-    public String toString() {
-        return "id="+ id + ",fullname="+name+", age="+age+", address="+address+"classeId"+classesid;
+    public String getName() {
+        return name;
     }
 
-    public String toString2() {
-        return "id="+ id + ",fullname="+name+", age="+age+", address="+address;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getClassesId() {
+        return classesId;
+    }
+
+    public void setClassesId(int classesId) {
+        this.classesId = classesId;
     }
 }
