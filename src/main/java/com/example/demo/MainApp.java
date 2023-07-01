@@ -151,8 +151,7 @@ public class MainApp {
 
     private static void listAllStudents() {
         List<Student> students = StudentDao.getInstance().getList();
-        students.forEach(item -> PrintUtils.infoMessage(item.toString()));
+        students.forEach(student -> PrintUtils.infoMessage(student.toString()));
     }
-
 
 }
