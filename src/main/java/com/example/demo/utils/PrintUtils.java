@@ -8,6 +8,6 @@ public class PrintUtils {
     }
 
     public static void errorMessage(String message) {
-        System.err.println("ERROR: " + message);
+        System.err.println(">>> ERROR: " + message);
     }
 }
