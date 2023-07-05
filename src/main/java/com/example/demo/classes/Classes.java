@@ -1,4 +1,4 @@
-package com.example.demo.classespk;
+package com.example.demo.classes;
 
 public class Classes {
     private int id;

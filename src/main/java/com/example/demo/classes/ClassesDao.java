@@ -1,6 +1,6 @@
-package com.example.demo.classespk;
+package com.example.demo.classes;
 
-import com.example.demo.studentpk.ConnectDB;
+import com.example.demo.student.ConnectDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

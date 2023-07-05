@@ -1,4 +1,4 @@
-package com.example.demo.studentpk;
+package com.example.demo.student;
 
 public class Student {
 
@@ -9,45 +9,45 @@ public class Student {
 
     private String address;
 
-    private float mark;
+    private float score;
     private int classesId;
 
 
     public Student() {
     }
 
-    public Student(int id, String name, int age, String address,float mark) {
+    public Student(int id, String name, int age, String address,float score) {
         super();
         this.id = id;
         this.name = name;
         this.age = age;
         this.address = address;
-        this.mark  = mark;
+        this.score  = score;
     }
 
-    public Student(int id, String name, int age, String address,float mark, int classesId) {
+    public Student(int id, String name, int age, String address,float score, int classesId) {
         super();
         this.id = id;
         this.name = name;
         this.age = age;
         this.address = address;
-        this.mark= mark;
+        this.score= score;
         this.classesId = classesId;
     }
 
     public String toString() {
-        return "id="+ id + ", hoten="+name+", tuoi="+age+", lop="+address+ ", mark" +mark+ ", classesId="+classesId;
+        return "id="+ id + ", hoten="+name+", tuoi="+age+", lop="+address+ ", score" +score+ ", classesId="+classesId;
     }
     public String toString1() {
-        return "id="+ id + ", hoten="+name+", tuoi="+age+", lop="+address+ ", mark" +mark+ ", classesId="+classesId ;
+        return "id="+ id + ", hoten="+name+", tuoi="+age+", lop="+address+ ", score=" +score+ ", classesId="+classesId ;
     }
 
-    public void setMark(float mark) {
-        this.mark = mark;
+    public void setScore(float score) {
+        this.score = score;
     }
 
-    public float getMark() {
-        return mark;
+    public float getScore() {
+        return score;
     }
 
     public int getId() {

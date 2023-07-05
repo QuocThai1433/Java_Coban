@@ -1,4 +1,4 @@
-package com.example.demo.studentpk;
+package com.example.demo.student;
 import java.util.Scanner;
 
 public class StudentService {
@@ -29,9 +29,9 @@ public class StudentService {
                   break;
               }
               case 4: {
-                  System.out.print("Mark = ");
-                  float mark = scanner.nextFloat();
-                  student.setMark(mark);
+                  System.out.print("Score = ");
+                  float score = scanner.nextFloat();
+                  student.setScore(score);
                   break;
               }
               case 5:

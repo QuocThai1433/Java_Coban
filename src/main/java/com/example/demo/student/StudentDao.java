@@ -1,4 +1,4 @@
-package com.example.demo.studentpk;
+package com.example.demo.student;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,22 +16,22 @@ public class StudentDao {
         String name = rs.getString("name");
         int age = rs.getInt("age");
         String address = rs.getString("address");
-        float mark = rs.getFloat("mark");
+        float score = rs.getFloat("score");
         int classesId = rs.getInt("classesId");
 
-        return new Student(id, name, age, address, mark, classesId);
+        return new Student(id, name, age, address, score, classesId);
 
     }
 
     public int create(Student student) {
         int kq = 0;
-        String query = "INSERT INTO student VALUE(?,?,?,?,?,?); ";
+        String query = "insert into student value(?,?,?,?,?,?); ";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, student.getId());
             ps.setString(2, student.getName());
             ps.setInt(3, student.getAge());
-            ps.setFloat(4, student.getMark());
+            ps.setFloat(4, student.getScore());
             ps.setString(5, student.getAddress());
             ps.setInt(6, student.getClassesId());
             kq = ps.executeUpdate();
@@ -63,7 +63,7 @@ public class StudentDao {
     public List<Student> getListCount(int ids) {
 
         List<Student> students = new ArrayList<>();
-        String query = "SELECT * FROM student ORDER BY id ASC LIMIT ? ";
+        String query = "select * from student order by id asc limit ? ";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, ids);
@@ -101,12 +101,12 @@ public class StudentDao {
     public int update(Student student) {
         int kq = 0;
         try {
-            String query = "UPDATE student  SET Name =? , Age=?, Address=?, Mark=? WHERE ID = ? ";
+            String query = "UPDATE student  set Name =? , age=?, address=?, score=? where id = ? ";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(5, student.getId());
             ps.setString(1, student.getName());
             ps.setInt(2, student.getAge());
-            ps.setFloat(3, student.getMark());
+            ps.setFloat(3, student.getScore());
             ps.setString(4, student.getAddress());
             kq = ps.executeUpdate();
             ps.close();
@@ -121,7 +121,7 @@ public class StudentDao {
     public int delete(int id) {
 
         int kq = 0;
-        String query = " DELETE FROM student WHERE ID = ?;";
+        String query = " delete from student where id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id);
@@ -138,7 +138,7 @@ public class StudentDao {
     public List<Student> getListByClasses(int ids) {
         List<Student> studentList = new ArrayList<>();
 
-        String query = "SELECT * FROM student t, classes c where c.id= t.classesId and t.classesId=?";
+        String query = "select * from student t, classes c where c.id= t.classesId and t.classesId=?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, ids);
@@ -157,16 +157,15 @@ public class StudentDao {
     }
 
 
-    public Student getMaxMark(int classesid) {
-        Student student= new Student();
+    public Student getMaxScoreStudent(int classesid) {
+        Student student = new Student();
         try {
-            String query= "select *  from student where classesId = ? order by mark desc limit 1";
+            String query = "select *  from student where classesId = ? order by score desc limit 1";
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1,classesid);
+            ps.setInt(1, classesid);
             ResultSet rs = ps.executeQuery();
-            while ( rs.next())
-            {
-               student = listStudent(rs);
+            while (rs.next()) {
+                student = listStudent(rs);
             }
 
 
