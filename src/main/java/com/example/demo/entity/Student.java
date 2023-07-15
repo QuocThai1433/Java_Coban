@@ -1,13 +1,15 @@
 package com.example.demo.entity;
 
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
 import javax.persistence.*;
 import java.util.UUID;
 
-@Table(name = "student_entity")
+@Table(name = "students")
 @Getter
 @Setter
 @Entity
@@ -16,9 +18,8 @@ import java.util.UUID;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private UUID id; // private
+    @Column(updatable = false, nullable = false, columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @Column(name = "full_name")
     private String name;

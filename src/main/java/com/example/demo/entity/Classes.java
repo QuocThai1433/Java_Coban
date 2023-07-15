@@ -18,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Classes {
     @Id
-    @Column(name = "id")
+    @Column(updatable = false, nullable = false, columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Column(name = "class_name")
