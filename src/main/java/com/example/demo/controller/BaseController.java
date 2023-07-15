@@ -4,12 +4,13 @@ import com.example.demo.controller.interfaces.IBaseController;
 import com.example.demo.service.interfaces.IBaseService;
 import org.springframework.http.ResponseEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class BaseController<T, Id> implements IBaseController<T, Id> {
-    private final IBaseService<T, Id> idIBaseService;
+public class BaseController<T, I extends Serializable> implements IBaseController<T, I> {
+    private final IBaseService<T, I> idIBaseService;
 
-    public BaseController(IBaseService<T, Id> idIBaseService) {
+    public BaseController(IBaseService<T, I> idIBaseService) {
         this.idIBaseService = idIBaseService;
     }
 
@@ -19,12 +20,12 @@ public class BaseController<T, Id> implements IBaseController<T, Id> {
     }
 
     @Override
-    public ResponseEntity<T> update(T entity, Id id) {
+    public ResponseEntity<T> update(T entity, I id) {
         return ResponseEntity.ok(idIBaseService.update(entity, id));
     }
 
     @Override
-    public ResponseEntity<T> getById(Id id) {
+    public ResponseEntity<T> getById(I id) {
         return ResponseEntity.ok(idIBaseService.getById(id));
     }
 
@@ -34,7 +35,7 @@ public class BaseController<T, Id> implements IBaseController<T, Id> {
     }
 
     @Override
-    public ResponseEntity<Boolean> delete(Id id) {
+    public ResponseEntity<Boolean> delete(I id) {
         return ResponseEntity.ok(idIBaseService.delete(id));
     }
 }

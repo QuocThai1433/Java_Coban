@@ -3,13 +3,14 @@ package com.example.demo.service;
 import com.example.demo.service.interfaces.IBaseService;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public  abstract  class BaseService<T,Id> implements IBaseService<T, Id> {
-    public final JpaRepository<T,Id> repository;
+public abstract class BaseService<T, I extends Serializable> implements IBaseService<T, I> {
+    public final JpaRepository<T, I> repository;
 
-    protected BaseService(JpaRepository<T, Id> repository) {
+    protected BaseService(JpaRepository<T, I> repository) {
         this.repository = repository;
     }
 
@@ -19,22 +20,17 @@ public  abstract  class BaseService<T,Id> implements IBaseService<T, Id> {
     }
 
     @Override
-    public T update(T entity, Id id) {
-        if(getById(id)==null)
-        {
-            return  null;
+    public T update(T entity, I id) {
+        if (getById(id) == null) {
+            return null;
         }
         return repository.save(entity);
     }
 
     @Override
-    public T getById(Id id) {
+    public T getById(I id) {
         Optional<T> optional = repository.findById(id);
-        if(optional.isEmpty())
-        {
-            return null;
-        }
-       return optional.get();
+        return optional.orElse(null);
     }
 
     @Override
@@ -43,8 +39,8 @@ public  abstract  class BaseService<T,Id> implements IBaseService<T, Id> {
     }
 
     @Override
-    public boolean delete(Id id) {
-         repository.deleteById(id);
-        return  true;
+    public boolean delete(I id) {
+        repository.deleteById(id);
+        return true;
     }
 }
