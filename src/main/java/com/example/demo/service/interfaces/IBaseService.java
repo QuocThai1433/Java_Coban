@@ -1,16 +1,15 @@
 package com.example.demo.service.interfaces;
+
 import java.util.List;
 
-public interface IBaseService<T, Id>{
-    T create(T entity);
+public interface IBaseService<D, I> {
+    D create(D entity);
 
-    T update(T entity, Id id);
+    D update(D entity, I id);
 
-    T getById(Id id);
+    D getById(I id);
 
-    List<T> getList();
+    List<D> getList();
 
-    boolean delete(Id id);
-
-    T createDTO (T entity);
+    boolean delete(I id);
 }

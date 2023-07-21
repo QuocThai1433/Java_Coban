@@ -18,10 +18,11 @@ import java.util.UUID;
 public class Student {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false, columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column(name = "full_name")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "age")
@@ -34,6 +35,6 @@ public class Student {
     private float score;
 
     @ManyToOne
-    @JoinColumn (name ="classes_id", updatable = false)
+    @JoinColumn(name = "classes_id", updatable = false)
     private Classes classes;
 }

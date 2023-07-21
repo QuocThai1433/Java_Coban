@@ -8,11 +8,11 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.util.UUID;
+
 @Getter
 @Setter
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-
 public class StudentDTO {
     private UUID id;
 

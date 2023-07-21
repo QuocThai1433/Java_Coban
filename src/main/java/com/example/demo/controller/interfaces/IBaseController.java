@@ -5,23 +5,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-public interface IBaseController<T,Id> {
+public interface IBaseController<T, I> {
     @PostMapping("create")
     ResponseEntity<T> create(@RequestBody T entity);
 
     @PutMapping("update")
-    ResponseEntity<T> update (@RequestBody T entity, @RequestParam Id id);
+    ResponseEntity<T> update(@RequestBody T entity, @RequestParam I id);
 
     @GetMapping("{id}/detail")
-    ResponseEntity<T> getById (@PathVariable Id id);
+    ResponseEntity<T> getById(@PathVariable I id);
 
     @GetMapping("getList")
     ResponseEntity<List<T>> getList();
 
     @DeleteMapping("{id}/delete")
-    ResponseEntity<Boolean> delete(@PathVariable Id id);
-
-    @PostMapping("createDTO")
-    ResponseEntity<T> createDTO(@RequestBody T entity);
+    ResponseEntity<Boolean> delete(@PathVariable I id);
 
 }

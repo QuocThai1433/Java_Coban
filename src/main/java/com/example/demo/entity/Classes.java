@@ -19,11 +19,12 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Classes {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false, columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column(name = "class_name")
-    private String className;
+    @Column(name = "name")
+    private String name;
 
     @OneToMany(mappedBy = "classes")
     @Builder.Default

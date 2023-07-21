@@ -1,58 +1,63 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.StudentMapper;
+import com.example.demo.dto.IBaseMapper;
 import com.example.demo.service.interfaces.IBaseService;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-public abstract class BaseService<T, ID> implements IBaseService<T, ID> {
-    public final JpaRepository<T, ID> repository;
+public abstract class BaseService<E, I, D> implements IBaseService<D, I> {
+    public final JpaRepository<E, I> repository;
+    public final IBaseMapper<E, D> mapper;
 
-    public final StudentMapper mapper;
-
-    protected BaseService(JpaRepository<T, ID> repository, StudentMapper mapper) {
+    protected BaseService(JpaRepository<E, I> repository, IBaseMapper<E, D> mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
 
 
-
     @Override
-    public T create(T entity) {
-        return repository.save(entity);
+    public D create(D entity) {
+        return mapper.toDto(
+                repository.save(
+                        mapper.toEntity(entity)
+                )
+        );
     }
 
     @Override
-    public T update(T entity, ID id) {
+    public D update(D entity, I id) {
         if (getById(id) == null) {
             return null;
         }
-        return repository.save(entity);
+        return mapper.toDto(
+                repository.save(
+                        mapper.toEntity(entity)
+                )
+        );
     }
 
     @Override
-    public T getById(ID id) {
-        Optional<T> optional = repository.findById(id);
-        return optional.orElse(null);
+    public D getById(I id) {
+        Optional<E> optional = repository.findById(id);
+        return optional.map(mapper::toDto)
+                .orElse(null);
     }
 
     @Override
-    public List<T> getList() {
-        return repository.findAll();
+    public List<D> getList() {
+        return repository.findAll()
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public boolean delete(ID id) {
+    public boolean delete(I id) {
         repository.deleteById(id);
         return true;
     }
-
-    @Override
-    public T createDTO(T entity) {
-        return repository.save(entity);
-    }
-
 
 }
