@@ -21,4 +21,7 @@ public interface IBaseController<T,Id> {
     @DeleteMapping("{id}/delete")
     ResponseEntity<Boolean> delete(@PathVariable Id id);
 
+    @PostMapping("createDTO")
+    ResponseEntity<T> createDTO(@RequestBody T entity);
+
 }

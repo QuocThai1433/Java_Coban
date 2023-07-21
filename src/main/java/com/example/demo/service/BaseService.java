@@ -1,18 +1,23 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.StudentMapper;
 import com.example.demo.service.interfaces.IBaseService;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class BaseService<T, I extends Serializable> implements IBaseService<T, I> {
-    public final JpaRepository<T, I> repository;
+public abstract class BaseService<T, ID> implements IBaseService<T, ID> {
+    public final JpaRepository<T, ID> repository;
 
-    protected BaseService(JpaRepository<T, I> repository) {
+    public final StudentMapper mapper;
+
+    protected BaseService(JpaRepository<T, ID> repository, StudentMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
+
+
 
     @Override
     public T create(T entity) {
@@ -20,7 +25,7 @@ public abstract class BaseService<T, I extends Serializable> implements IBaseSer
     }
 
     @Override
-    public T update(T entity, I id) {
+    public T update(T entity, ID id) {
         if (getById(id) == null) {
             return null;
         }
@@ -28,7 +33,7 @@ public abstract class BaseService<T, I extends Serializable> implements IBaseSer
     }
 
     @Override
-    public T getById(I id) {
+    public T getById(ID id) {
         Optional<T> optional = repository.findById(id);
         return optional.orElse(null);
     }
@@ -39,8 +44,15 @@ public abstract class BaseService<T, I extends Serializable> implements IBaseSer
     }
 
     @Override
-    public boolean delete(I id) {
+    public boolean delete(ID id) {
         repository.deleteById(id);
         return true;
     }
+
+    @Override
+    public T createDTO(T entity) {
+        return repository.save(entity);
+    }
+
+
 }

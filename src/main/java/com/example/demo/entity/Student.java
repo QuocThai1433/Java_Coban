@@ -34,6 +34,6 @@ public class Student {
     private float score;
 
     @ManyToOne
-    @JoinColumn (name ="classesId", updatable = false)
+    @JoinColumn (name ="classes_id", updatable = false)
     private Classes classes;
 }

@@ -1,6 +1,4 @@
 package com.example.demo.service.interfaces;
-
-import java.io.Serializable;
 import java.util.List;
 
 public interface IBaseService<T, Id>{
@@ -13,4 +11,6 @@ public interface IBaseService<T, Id>{
     List<T> getList();
 
     boolean delete(Id id);
+
+    T createDTO (T entity);
 }

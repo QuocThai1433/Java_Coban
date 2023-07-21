@@ -1,20 +1,19 @@
 package com.example.demo.controller;
 
 import com.example.demo.controller.interfaces.IBaseController;
+import com.example.demo.dto.StudentMapper;
 import com.example.demo.service.interfaces.IBaseService;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public class BaseController<T, Id> implements IBaseController<T, Id> {
-    private final IBaseService<T, Id> iBaseService
-            ;
+    private final IBaseService<T, Id> iBaseService;
 
-    public BaseController(IBaseService<T, Id> iBaseService
-    ) {
-        this.iBaseService
-                = iBaseService
-        ;
+
+    public BaseController(IBaseService<T, Id> iBaseService  ) {
+        this.iBaseService = iBaseService;
+
     }
 
     @Override
@@ -45,4 +44,12 @@ public class BaseController<T, Id> implements IBaseController<T, Id> {
         return ResponseEntity.ok(iBaseService
                 .delete(id));
     }
+
+
+    public ResponseEntity<T> createDTO(T entity) {
+        return ResponseEntity.ok(iBaseService.createDTO(entity));
+    }
+
+
+
 }

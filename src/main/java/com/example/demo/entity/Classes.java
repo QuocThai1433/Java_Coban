@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +25,8 @@ public class Classes {
     @Column(name = "class_name")
     private String className;
 
-    @OneToMany (mappedBy = "classes")
-    List<Student> students = new ArrayList<>();
+    @OneToMany(mappedBy = "classes")
+    @Builder.Default
+    private List<Student> students = new ArrayList<>();
 
 }
