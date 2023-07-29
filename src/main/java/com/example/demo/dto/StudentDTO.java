@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 import com.example.demo.entity.Classes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,8 @@ import java.util.UUID;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class StudentDTO {
+    
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID id;
 
     private String name;
