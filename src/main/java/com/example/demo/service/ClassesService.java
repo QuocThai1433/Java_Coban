@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Service
 public class ClassesService extends BaseService<Classes, UUID, ClassesDTO> implements IClassesService {
-    protected ClassesService(JpaRepository<Classes, UUID> repository, IBaseMapper<Classes, ClassesDTO> mapper) {
+    protected ClassesService(JpaRepository<Classes, UUID> repository, IBaseMapper<Classes, ClassesDTO, UUID> mapper) {
         super(repository, mapper);
     }
 }

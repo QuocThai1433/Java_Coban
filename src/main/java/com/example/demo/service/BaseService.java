@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 
 public abstract class BaseService<E, I, D> implements IBaseService<D, I> {
     public final JpaRepository<E, I> repository;
-    public final IBaseMapper<E, D> mapper;
+    public final IBaseMapper<E, D, I> mapper;
 
-    protected BaseService(JpaRepository<E, I> repository, IBaseMapper<E, D> mapper) {
+    protected BaseService(JpaRepository<E, I> repository, IBaseMapper<E, D, I> mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -34,7 +34,7 @@ public abstract class BaseService<E, I, D> implements IBaseService<D, I> {
         }
         return mapper.toDto(
                 repository.save(
-                        mapper.toEntity(entity)
+                        mapper.toEntity(entity, id)
                 )
         );
     }
