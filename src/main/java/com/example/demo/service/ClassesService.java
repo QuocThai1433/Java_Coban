@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ClassesDTO;
-import com.example.demo.dto.IBaseMapper;
+import com.example.demo.dto.mapper.IBaseMapper;
 import com.example.demo.entity.Classes;
 import com.example.demo.service.interfaces.IClassesService;
 import org.springframework.data.jpa.repository.JpaRepository;

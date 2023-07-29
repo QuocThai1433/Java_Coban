@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.dto.mapper;
 
 public interface IBaseMapper<E, D> {
     E toEntity(D dto);

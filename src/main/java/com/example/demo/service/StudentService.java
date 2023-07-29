@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.IBaseMapper;
+import com.example.demo.dto.mapper.IBaseMapper;
 import com.example.demo.dto.StudentDTO;
 import com.example.demo.entity.Student;
 import com.example.demo.service.interfaces.IStudentService;
