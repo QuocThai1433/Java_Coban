@@ -64,6 +64,4 @@ public  class BaseService<E, I, D> implements IBaseService<D, I> {
         return true;
     }
 
-
-
 }

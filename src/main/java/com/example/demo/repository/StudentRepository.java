@@ -1,6 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.Student;
+import com.example.demo.entity.Students;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, UUID> {
-    @Query("SELECT * FROM student ORDER BY id ASC LIMIT =:count")
-    List<Student> STUDENT_LIST (@Param("count") Integer count);
+public interface StudentRepository extends JpaRepository<Students, UUID> {
+    @Query(value = "SELECT * FROM student ORDER BY id ASC size =:count",
+    nativeQuery = true)
+    List<Students> studentList (@Param("count") Integer count);
 }

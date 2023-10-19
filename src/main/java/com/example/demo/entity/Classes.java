@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.repository.query.Param;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,6 +29,6 @@ public class Classes {
 
     @OneToMany(mappedBy = "classes")
     @Builder.Default
-    private List<Student> students = new ArrayList<>();
+    private List<Students> students = new ArrayList<>();
 
 }

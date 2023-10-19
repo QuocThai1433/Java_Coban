@@ -2,14 +2,32 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.interfaces.IStudentController;
 import com.example.demo.dto.StudentDTO;
+import com.example.demo.dto.mapper.StudentMapper;
+import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.interfaces.IBaseService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 public class StudentController extends BaseController<StudentDTO, UUID> implements IStudentController {
-    public StudentController(IBaseService<StudentDTO, UUID> iBaseService) {
+    public final StudentRepository repository;
+    public final StudentMapper mapper;
+    public StudentController(IBaseService<StudentDTO, UUID> iBaseService, StudentRepository repository, StudentMapper mapper) {
         super(iBaseService);
+        this.repository = repository;
+        this.mapper = mapper;
+    }
+    @GetMapping("getListCountStudent")
+    public ResponseEntity<List<StudentDTO>> getListCountStudent(@RequestParam int count) {
+        return ResponseEntity.ok(repository.studentList(count)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList()));
     }
 }

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -16,7 +15,7 @@ import java.util.UUID;
 @Entity
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-public class Student {
+public class Students {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -21,4 +21,6 @@ public interface IBaseController<T, I> {
     @DeleteMapping("{id}/delete")
     ResponseEntity<Boolean> delete(@PathVariable I id);
 
+
+
 }

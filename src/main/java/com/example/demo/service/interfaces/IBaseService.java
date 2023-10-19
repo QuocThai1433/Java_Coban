@@ -17,4 +17,5 @@ public interface IBaseService<D, I> {
     boolean delete(I id);
 
 
+
 }

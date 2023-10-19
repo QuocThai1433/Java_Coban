@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public class BaseController<T, I> implements IBaseController<T, I> {
+public class BaseController<T, I > implements IBaseController<T, I> {
     private final IBaseService<T, I> iBaseService;
 
     public BaseController(IBaseService<T, I> iBaseService) {
@@ -37,5 +37,8 @@ public class BaseController<T, I> implements IBaseController<T, I> {
     public ResponseEntity<Boolean> delete(I id) {
         return ResponseEntity.ok(iBaseService.delete(id));
     }
+
+
+
 
 }
