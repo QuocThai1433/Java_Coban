@@ -1,5 +1,8 @@
 package com.example.demo.service.interfaces;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 public interface IBaseService<D, I> {
@@ -12,4 +15,6 @@ public interface IBaseService<D, I> {
     List<D> getList();
 
     boolean delete(I id);
+
+
 }

@@ -6,23 +6,27 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public abstract class BaseService<E, I, D> implements IBaseService<D, I> {
+public  class BaseService<E, I, D> implements IBaseService<D, I> {
     public final JpaRepository<E, I> repository;
     public final IBaseMapper<E, D, I> mapper;
 
-    protected BaseService(JpaRepository<E, I> repository, IBaseMapper<E, D, I> mapper) {
+
+    public Scanner scanner;
+
+    public BaseService(JpaRepository<E, I> repository, IBaseMapper<E, D, I> mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
 
 
     @Override
-    public D create(D entity) {
+    public D create(D dto) {
         return mapper.toDto(
                 repository.save(
-                        mapper.toEntity(entity)
+                        mapper.toEntity(dto)
                 )
         );
     }
@@ -59,5 +63,7 @@ public abstract class BaseService<E, I, D> implements IBaseService<D, I> {
         repository.deleteById(id);
         return true;
     }
+
+
 
 }

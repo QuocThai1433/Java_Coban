@@ -20,26 +20,22 @@ public class BaseController<T, I> implements IBaseController<T, I> {
 
     @Override
     public ResponseEntity<T> update(T entity, I id) {
-        return ResponseEntity.ok(iBaseService
-                .update(entity, id));
+        return ResponseEntity.ok(iBaseService.update(entity, id));
     }
 
     @Override
     public ResponseEntity<T> getById(I id) {
-        return ResponseEntity.ok(iBaseService
-                .getById(id));
+        return ResponseEntity.ok(iBaseService.getById(id));
     }
 
     @Override
     public ResponseEntity<List<T>> getList() {
-        return ResponseEntity.ok(iBaseService
-                .getList());
+        return ResponseEntity.ok(iBaseService.getList());
     }
 
     @Override
     public ResponseEntity<Boolean> delete(I id) {
-        return ResponseEntity.ok(iBaseService
-                .delete(id));
+        return ResponseEntity.ok(iBaseService.delete(id));
     }
 
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
 import java.util.UUID;

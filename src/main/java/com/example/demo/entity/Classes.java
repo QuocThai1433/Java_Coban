@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.repository.query.Param;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.UUID;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class Classes {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false, columnDefinition = "BINARY(16)")
