@@ -5,6 +5,7 @@ import com.example.demo.dto.StudentDTO;
 import com.example.demo.dto.mapper.StudentMapper;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.interfaces.IBaseService;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,14 +19,35 @@ import java.util.stream.Collectors;
 public class StudentController extends BaseController<StudentDTO, UUID> implements IStudentController {
     public final StudentRepository repository;
     public final StudentMapper mapper;
+
     public StudentController(IBaseService<StudentDTO, UUID> iBaseService, StudentRepository repository, StudentMapper mapper) {
         super(iBaseService);
         this.repository = repository;
         this.mapper = mapper;
     }
+
     @GetMapping("getListCountStudent")
-    public ResponseEntity<List<StudentDTO>> getListCountStudent(@RequestParam int count) {
+    public ResponseEntity<List<StudentDTO>> getListCountStudent(@RequestParam Integer count) {
         return ResponseEntity.ok(repository.studentList(count)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList()));
+    }
+
+    @GetMapping("getPaging")
+    public ResponseEntity<List<StudentDTO>> getPaging(@RequestParam Integer page, @RequestParam Integer size) {
+
+        Integer offset= page * size;
+            return ResponseEntity.ok(repository.studentPaging(size, offset)
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList()));
+    }
+
+    @GetMapping("getFilter")
+    public ResponseEntity<List<StudentDTO>> getFilter(@RequestParam String findName, @RequestParam Integer age)
+    {
+        return ResponseEntity.ok(repository.studentFilter(findName,age)
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList()));

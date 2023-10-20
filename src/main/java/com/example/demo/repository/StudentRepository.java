@@ -11,7 +11,18 @@ import java.util.UUID;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Students, UUID> {
-    @Query(value = "SELECT * FROM student ORDER BY id ASC size =:count",
+    @Query(value = "SELECT * FROM students ORDER BY id ASC limit :count",
     nativeQuery = true)
     List<Students> studentList (@Param("count") Integer count);
+
+    @Query(value = "SELECT * FROM students limit :size offset :offset",
+    nativeQuery = true)
+    List<Students> studentPaging (@Param("size") Integer size, @Param("offset") Integer offset);
+
+    @Query(value = "SELECT * FROM students WHERE name LIKE CONCAT('%', :findName, '%') and age =:age ",
+            nativeQuery = true)
+    List<Students> studentFilter (@Param("findName") String name, @Param("age") Integer age);
+
+
+
 }
