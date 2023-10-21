@@ -28,6 +28,7 @@ public class StudentController extends BaseController<StudentDTO, UUID> implemen
 
     @GetMapping("getListCountStudent")
     public ResponseEntity<List<StudentDTO>> getListCountStudent(@RequestParam Integer count) {
+
         return ResponseEntity.ok(repository.studentList(count)
                 .stream()
                 .map(mapper::toDto)
@@ -37,19 +38,27 @@ public class StudentController extends BaseController<StudentDTO, UUID> implemen
     @GetMapping("getPaging")
     public ResponseEntity<List<StudentDTO>> getPaging(@RequestParam Integer page, @RequestParam Integer size) {
 
-        Integer offset= page * size;
-            return ResponseEntity.ok(repository.studentPaging(size, offset)
+        Integer offset = page * size;
+        return ResponseEntity.ok(repository.studentPaging(size, offset)
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList()));
     }
 
     @GetMapping("getFilter")
-    public ResponseEntity<List<StudentDTO>> getFilter(@RequestParam String findName, @RequestParam Integer age)
-    {
-        return ResponseEntity.ok(repository.studentFilter(findName,age)
+    public ResponseEntity<List<StudentDTO>> getFilter(@RequestParam(required = false) String findName, @RequestParam(required = false) Integer age) {
+//        var a=repository.studentFilter(findName,age);
+        return ResponseEntity.ok(repository.studentFilter(findName, age)
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList()));
+    }
+
+    @GetMapping("sortStudent")
+    public ResponseEntity<List<StudentDTO>> sortStudent(@RequestParam String name, String age, String score, String dateMonth) {
+        return ResponseEntity.ok(repository.sortStudent(name, age, score, dateMonth)
+                .stream().map(mapper::toDto).collect(Collectors.toList()));
+
+
     }
 }

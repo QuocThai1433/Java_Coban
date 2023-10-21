@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -26,6 +27,8 @@ public class StudentDTO {
     private String address;
 
     private float score;
+
+    private Date dateMonth;
 
     @JsonIgnore
     private Classes classes;

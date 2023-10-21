@@ -19,10 +19,12 @@ public interface StudentRepository extends JpaRepository<Students, UUID> {
     nativeQuery = true)
     List<Students> studentPaging (@Param("size") Integer size, @Param("offset") Integer offset);
 
-    @Query(value = "SELECT * FROM students WHERE name LIKE CONCAT('%', :findName, '%') and age =:age ",
+    @Query(value = "SELECT * FROM students WHERE  if(:findName is null, true, name LIKE CONCAT('%', :findName, '%'))  and if(:age is null, true,age = :age) ",
             nativeQuery = true)
     List<Students> studentFilter (@Param("findName") String name, @Param("age") Integer age);
 
 
-
+    @Query (value = "SELECT * FROM students ORDER BY name =:name, age =:age , score =:score , date_month =:dateMonth",
+    nativeQuery = true)
+    List<Students> sortStudent(@Param("name") String name, @Param("age") String age,@Param("score") String score , @Param("dateMonth") String dateMonth);
 }

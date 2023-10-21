@@ -22,7 +22,7 @@ spring:
       maximum-pool-size: 20
     type: com.zaxxer.hikari.HikariDataSource
   jpa:
-    show-sql: false
+    show-sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate.format_sql: true
