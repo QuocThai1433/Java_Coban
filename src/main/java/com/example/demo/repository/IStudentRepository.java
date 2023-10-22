@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Students, UUID> {
+public interface IStudentRepository extends JpaRepository<Students, UUID> {
     @Query(value = "SELECT * FROM students ORDER BY id ASC limit :count",
     nativeQuery = true)
     List<Students> studentList (@Param("count") Integer count);
@@ -23,8 +23,4 @@ public interface StudentRepository extends JpaRepository<Students, UUID> {
             nativeQuery = true)
     List<Students> studentFilter (@Param("findName") String name, @Param("age") Integer age);
 
-
-    @Query (value = "SELECT * FROM students ORDER BY name =:name, age =:age , score =:score , date_month =:dateMonth",
-    nativeQuery = true)
-    List<Students> sortStudent(@Param("name") String name, @Param("age") String age,@Param("score") String score , @Param("dateMonth") String dateMonth);
 }
