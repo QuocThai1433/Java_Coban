@@ -55,8 +55,8 @@ public class StudentService extends BaseService<Students, UUID, StudentDTO> impl
     }
 
     @GetMapping("sortStudent")
-    public ResponseEntity<List<StudentDTO>> sortStudent(@RequestParam String nameType, @RequestParam String fullName,@RequestParam Integer age,@RequestParam Float score,@RequestParam String address){
-        return ResponseEntity.ok(studentRepositoryIpl.getByFilter(nameType,fullName,age,score,address)
+    public ResponseEntity<List<StudentDTO>> sortStudent(@RequestParam String nameSort,@RequestParam String nameType, @RequestParam String fullName,@RequestParam Integer age,@RequestParam Float score,@RequestParam String address){
+        return ResponseEntity.ok(studentRepositoryIpl.getByFilter(nameSort,nameType,fullName,age,score,address)
                 .stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList()));

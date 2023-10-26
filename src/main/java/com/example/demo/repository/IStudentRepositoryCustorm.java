@@ -7,5 +7,5 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface IStudentRepositoryCustorm {
-    List<Students> getByFilter (String nameSortType, @Param("name") String fullName, @Param("age") Integer age,@Param("score ") Float score,@Param("address") String address );
+    List<Students> getByFilter (String nameSort,String nameType, @Param("name") String fullName, @Param("age") Integer age,@Param("score ") Float score,@Param("address") String address );
 }

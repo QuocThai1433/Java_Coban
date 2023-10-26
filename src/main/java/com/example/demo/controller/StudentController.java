@@ -49,8 +49,8 @@ public class StudentController extends BaseController<StudentDTO, UUID> implemen
     }
 
     @GetMapping("sortStudent")
-    public ResponseEntity<List<StudentDTO>> sortStudent(@RequestParam String nameType, @RequestParam(required = false) String fullName,@RequestParam(required = false) Integer age,@RequestParam(required = false) Float score,@RequestParam(required = false) String address ) {
-        return studentService.sortStudent(nameType,fullName,age,score,address);
+    public ResponseEntity<List<StudentDTO>> sortStudent(@RequestParam String nameSort,@RequestParam String nameType, @RequestParam(required = false) String fullName,@RequestParam(required = false) Integer age,@RequestParam(required = false) Float score,@RequestParam(required = false) String address ) {
+        return studentService.sortStudent(nameSort,nameType,fullName,age,score,address);
 
     }
 

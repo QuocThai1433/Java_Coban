@@ -18,17 +18,34 @@ public class StudentRepositoryIpl implements IStudentRepositoryCustorm {
     public final EntityManager entityManager;
 
     @Override
-    public List<Students> getByFilter(String nameSortType, String fullName, Integer age, Float score, String address) {
+    public List<Students> getByFilter(String nameSort,String nameType, String fullName, Integer age, Float score, String address) {
 
-        String query = "select * from students where if(:name is null, true ,name =:name) and if(:age is null, true ,age =:age) and if(:score is null, true ,score =:score) and  if(:address is null, true ,address =:address)  order by name  ";
+        String query = "select * from students where if(:name is null, true ,name =:name) and if(:age is null, true ,age =:age) and if(:score is null, true ,score =:score) and  if(:address is null, true ,address =:address)  order by   ";
 
-        if (nameSortType.equals("asc"))
-        {
-            query = query + "asc";
-        }else
-        {
-            query = query +"desc";
-        }
+
+
+  if(nameSort.equals("name "))
+  {
+      query = query + "name";
+      if (nameType.equals("asc"))
+      {
+          query = query + "asc";
+      }else
+      {
+          query = query +"desc";
+      }
+  }
+  else {
+      query = query + "age ";
+      if (nameType.equals("asc"))
+      {
+          query = query + "asc";
+      }else
+      {
+          query = query +"desc";
+      }
+
+  }
         Query typeQuery = entityManager.createNativeQuery(query,Students.class);
         typeQuery.setParameter("name", fullName);
         typeQuery.setParameter("age", age);
