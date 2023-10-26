@@ -14,8 +14,6 @@ public  class BaseService<E, I, D> implements IBaseService<D, I> {
     public final IBaseMapper<E, D, I> mapper;
 
 
-    public Scanner scanner;
-
     public BaseService(JpaRepository<E, I> repository, IBaseMapper<E, D, I> mapper) {
         this.repository = repository;
         this.mapper = mapper;

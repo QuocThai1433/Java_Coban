@@ -5,6 +5,7 @@ import com.example.demo.dto.StudentDTO;
 import com.example.demo.dto.mapper.StudentMapper;
 import com.example.demo.service.StudentService;
 import com.example.demo.service.interfaces.IBaseService;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,8 +49,8 @@ public class StudentController extends BaseController<StudentDTO, UUID> implemen
     }
 
     @GetMapping("sortStudent")
-    public ResponseEntity<List<StudentDTO>> sortStudent(@RequestParam String fullname) {
-        return studentService.sortStudent(fullname);
+    public ResponseEntity<List<StudentDTO>> sortStudent(@RequestParam String nameType, @RequestParam(required = false) String fullName,@RequestParam(required = false) Integer age,@RequestParam(required = false) Float score,@RequestParam(required = false) String address ) {
+        return studentService.sortStudent(nameType,fullName,age,score,address);
 
     }
 

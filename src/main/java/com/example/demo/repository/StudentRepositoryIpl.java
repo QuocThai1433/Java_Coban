@@ -3,10 +3,12 @@ package com.example.demo.repository;
 import com.example.demo.entity.Students;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -14,9 +16,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentRepositoryIpl implements IStudentRepositoryCustorm {
     public final EntityManager entityManager;
+
     @Override
-    public List<Students> getByFilter(String nameSortType) {
-        String query ="select * from students order by name ";
+    public List<Students> getByFilter(String nameSortType, String fullName, Integer age, Float score, String address) {
+
+        String query = "select * from students where if(:name is null, true ,name =:name) and if(:age is null, true ,age =:age) and if(:score is null, true ,score =:score) and  if(:address is null, true ,address =:address)  order by name  ";
+
         if (nameSortType.equals("asc"))
         {
             query = query + "asc";
@@ -24,7 +29,12 @@ public class StudentRepositoryIpl implements IStudentRepositoryCustorm {
         {
             query = query +"desc";
         }
-        TypedQuery<Students> typedQuery = entityManager.createQuery(query,Students.class);
-        return typedQuery.getResultList();
+        Query typeQuery = entityManager.createNativeQuery(query,Students.class);
+        typeQuery.setParameter("name", fullName);
+        typeQuery.setParameter("age", age);
+        typeQuery.setParameter("score", score);
+        typeQuery.setParameter("address", address);
+
+        return typeQuery.getResultList();
     }
 }

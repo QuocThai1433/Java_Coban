@@ -12,4 +12,6 @@ public class ClassesController extends BaseController<ClassesDTO, UUID> implemen
     public ClassesController(IBaseService<ClassesDTO, UUID> idIBaseService) {
         super(idIBaseService);
     }
+
+
 }
