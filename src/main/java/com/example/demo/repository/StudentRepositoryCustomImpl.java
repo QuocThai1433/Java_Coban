@@ -1,8 +1,10 @@
 package com.example.demo.repository;
 
 import com.example.demo.dto.QueryStudentRequest;
+import com.example.demo.dto.QueryStudentRequestV2;
 import com.example.demo.entity.Students;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
@@ -46,7 +48,7 @@ public class StudentRepositoryCustomImpl implements IStudentRepositoryCustom {
             "  and if(:score is null, true, score = :score) " +
             "  and if(:address is null, true, address = :address) ";
 
-        query = this.buildSort(query, List.of(request.getSorts()));
+        query = this.buildSort(query, request.getSorts());
 
         Query typeQuery = entityManager.createNativeQuery(query, Students.class)
             .setParameter("name", request.getFullName())
@@ -61,18 +63,8 @@ public class StudentRepositoryCustomImpl implements IStudentRepositoryCustom {
         if (sorts.isEmpty()) {
             return query;
         }
-        StringBuilder queryBuilder = new StringBuilder(query);
-
-        queryBuilder.append("order by ");
-
-        for (String item : sorts) {
-            String propertyName = item.split(" ")[0];
-            if (sortList.contains(propertyName)) {
-                queryBuilder.append(item).append(", ");
-            }
-        }
-        queryBuilder.deleteCharAt(queryBuilder.length() - 1);
-        queryBuilder.deleteCharAt(queryBuilder.length() - 1);
-        return queryBuilder.toString();
+        return query + "order by " +
+            String.join(", ", sorts);
     }
+
 }

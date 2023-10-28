@@ -3,14 +3,11 @@ package com.example.demo.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
-public class QueryStudentRequest {
+public class QueryStudentRequestV2 {
     private String fullName;
-    private String age;
+    private Integer age;
     private String address;
-    private String score;
-    private List<String> sorts;
+    private Integer score;
 }

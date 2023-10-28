@@ -2,10 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.interfaces.IStudentController;
 import com.example.demo.dto.QueryStudentRequest;
+import com.example.demo.dto.QueryStudentRequestV2;
 import com.example.demo.dto.StudentDTO;
 import com.example.demo.service.StudentService;
 import com.example.demo.service.interfaces.IBaseService;
 import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,7 +50,13 @@ public class StudentController extends BaseController<StudentDTO, UUID> implemen
     }
 
     @GetMapping("query")
-    public ResponseEntity<List<StudentDTO>> query(@ParameterObject QueryStudentRequest request){
+    public ResponseEntity<List<StudentDTO>> query(@ParameterObject QueryStudentRequest request) {
         return ResponseEntity.ok(this.studentService.query(request));
+    }
+
+    @GetMapping("v2/query")
+    public ResponseEntity<List<StudentDTO>> queryV2(@ParameterObject QueryStudentRequestV2 request,
+                                                    @ParameterObject Pageable pageable) {
+        return ResponseEntity.ok(this.studentService.query(request, pageable));
     }
 }

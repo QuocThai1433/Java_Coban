@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.QueryStudentRequest;
+import com.example.demo.dto.QueryStudentRequestV2;
 import com.example.demo.dto.StudentDTO;
 import com.example.demo.dto.mapper.IBaseMapper;
 import com.example.demo.entity.Students;
@@ -9,6 +10,7 @@ import com.example.demo.repository.IStudentRepositoryCustom;
 import com.example.demo.repository.StudentRepositoryIpl;
 import com.example.demo.service.interfaces.IStudentService;
 import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -73,6 +75,18 @@ public class StudentService extends BaseService<Students, UUID, StudentDTO> impl
 
     public List<StudentDTO> query(@ParameterObject QueryStudentRequest request) {
         return this.studentRepositoryCustom.query(request).stream()
+            .map(mapper::toDto)
+            .collect(Collectors.toList());
+    }
+
+    public List<StudentDTO> query(@ParameterObject QueryStudentRequestV2 request, Pageable pageable) {
+        return this.studentRepository.query(
+                request.getFullName(),
+                request.getAddress(),
+                request.getScore(),
+                request.getAge(),
+                pageable
+            ).stream()
             .map(mapper::toDto)
             .collect(Collectors.toList());
     }
