@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class ClassesService extends BaseService<Classes, UUID, ClassesDTO> implements IClassesService {
-    protected ClassesService(JpaRepository<Classes, UUID> repository, IBaseMapper<Classes, ClassesDTO, UUID> mapper) {
+public class ClassesService extends BaseService<Classes, Long, ClassesDTO> implements IClassesService {
+    protected ClassesService(JpaRepository<Classes, Long> repository, IBaseMapper<Classes, ClassesDTO, Long> mapper) {
         super(repository, mapper);
     }
 }

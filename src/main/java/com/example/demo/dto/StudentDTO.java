@@ -18,7 +18,7 @@ import java.util.UUID;
 public class StudentDTO {
     
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private UUID id;
+    private Long id;
 
     private String name;
 

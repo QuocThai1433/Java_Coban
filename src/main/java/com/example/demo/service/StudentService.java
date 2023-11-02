@@ -17,11 +17,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class StudentService extends BaseService<Students, UUID, StudentDTO> implements IStudentService {
+public class StudentService extends BaseService<Students, Long, StudentDTO> implements IStudentService {
     public final IStudentRepository studentRepository;
     public final StudentRepositoryIpl studentRepositoryIpl;
 
-    public StudentService(JpaRepository<Students, UUID> repository, IBaseMapper<Students, StudentDTO, UUID> mapper, IStudentRepository studentRepository, StudentRepositoryIpl studentRepositoryIpl) {
+    public StudentService(JpaRepository<Students, Long> repository, IBaseMapper<Students, StudentDTO, Long> mapper, IStudentRepository studentRepository, StudentRepositoryIpl studentRepositoryIpl) {
         super(repository, mapper);
         this.studentRepository = studentRepository;
         this.studentRepositoryIpl = studentRepositoryIpl;

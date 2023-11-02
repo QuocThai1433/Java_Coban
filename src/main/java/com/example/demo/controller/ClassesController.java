@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-public class ClassesController extends BaseController<ClassesDTO, UUID> implements IClassesController {
-    public ClassesController(IBaseService<ClassesDTO, UUID> idIBaseService) {
+public class ClassesController extends BaseController<ClassesDTO, Long> implements IClassesController {
+    public ClassesController(IBaseService<ClassesDTO, Long> idIBaseService) {
         super(idIBaseService);
     }
 }

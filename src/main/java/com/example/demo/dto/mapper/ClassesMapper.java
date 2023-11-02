@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-public class ClassesMapper implements IBaseMapper<Classes, ClassesDTO, UUID> {
+public class ClassesMapper implements IBaseMapper<Classes, ClassesDTO, Long> {
     @Override
     public Classes toEntity(ClassesDTO dto) {
         return Classes.builder()
@@ -17,7 +17,7 @@ public class ClassesMapper implements IBaseMapper<Classes, ClassesDTO, UUID> {
     }
 
     @Override
-    public Classes toEntity(ClassesDTO dto, UUID id) {
+    public Classes toEntity(ClassesDTO dto, Long id) {
         return Classes.builder()
                 .id(id)
                 .name(dto.getName())

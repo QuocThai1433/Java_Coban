@@ -15,13 +15,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-public class StudentController extends BaseController<StudentDTO, UUID> implements IStudentController {
+public class StudentController extends BaseController<StudentDTO, Long> implements IStudentController {
 
     public final StudentMapper mapper;
 
     public final StudentService studentService;
 
-    public StudentController(IBaseService<StudentDTO, UUID> iBaseService, StudentMapper mapper, StudentService studentService) {
+    public StudentController(IBaseService<StudentDTO, Long> iBaseService, StudentMapper mapper, StudentService studentService) {
         super(iBaseService);
 
         this.mapper = mapper;

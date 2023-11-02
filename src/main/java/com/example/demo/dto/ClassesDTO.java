@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ClassesDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private UUID id;
+    private Long id;
 
     private String name;
 }

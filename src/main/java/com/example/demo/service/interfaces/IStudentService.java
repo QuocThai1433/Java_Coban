@@ -4,5 +4,5 @@ import com.example.demo.dto.StudentDTO;
 
 import java.util.UUID;
 
-public interface IStudentService extends IBaseService<StudentDTO, UUID> {
+public interface IStudentService extends IBaseService<StudentDTO, Long> {
 }

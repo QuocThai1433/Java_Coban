@@ -10,27 +10,25 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(name = "classes")
+@Table(name = "teacher")
 @Getter
 @Setter
 @Entity
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-public class Classes {
-    
+public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "name")
     private String name;
     
-    @OneToMany(mappedBy = "classes")
     @Builder.Default
-    private List<Students> students = new ArrayList<>();
-    
-    @Builder.Default
-    @ManyToMany(mappedBy = "classesList")
-    private List<Teacher> teachers = new ArrayList<>();
-    
+    @ManyToMany
+    @JoinTable(
+        name = "teacher_class",
+        joinColumns = @JoinColumn(name = "teacher_id"), 
+        inverseJoinColumns = @JoinColumn(name = "class_id")
+    )
+    private List<Classes> classesList = new ArrayList<>();
 }
