@@ -7,8 +7,8 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "teacher")
 @Getter
@@ -17,6 +17,7 @@ import java.util.List;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class Teacher {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,9 +27,9 @@ public class Teacher {
     @Builder.Default
     @ManyToMany
     @JoinTable(
-        name = "teacher_class",
-        joinColumns = @JoinColumn(name = "teacher_id"), 
+        name = "rel_teacher_classes",
+        joinColumns = @JoinColumn(name = "teacher_id"),
         inverseJoinColumns = @JoinColumn(name = "class_id")
     )
-    private List<Classes> classesList = new ArrayList<>();
+    private Set<Classes> classesSet = new HashSet<>();
 }

@@ -13,7 +13,8 @@ import com.example.demo.service.mapper.StudentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +26,7 @@ public class StudentService implements IStudentService {
     
     @Override
     public StudentDTO create(CreateStudentRequest request) {
-        Classes classes = Objects.nonNull(request.getClassId()) ?
-            this.classesRepository.findById(request.getClassId()).orElse(null) : null;
+        Set<Classes> classes = this.buildClassesList(request.getClassIds());
         
         Students students = this.studentMapper.toEntityForCreate(request, classes);
         
@@ -41,10 +41,9 @@ public class StudentService implements IStudentService {
             RuntimeException::new
         );
         
-        Classes classes = Objects.nonNull(request.getClassId()) ?
-            this.classesRepository.findById(request.getClassId()).orElse(null) : null;
+        Set<Classes> classesSet = this.buildClassesList(request.getClassIds());
         
-        students = this.studentMapper.toEntityForUpdate(students, request, classes);
+        students = this.studentMapper.toEntityForUpdate(students, request, classesSet);
         
         students = this.studentRepository.save(students);
         
@@ -58,5 +57,15 @@ public class StudentService implements IStudentService {
             .orElseThrow(
                 () -> new BadRequestException("Student not found")
             );
+    }
+    
+    private Set<Classes> buildClassesList(Set<Long> classIds) {
+        Set<Classes> classesSet = new HashSet<>();
+        classIds.forEach(id ->
+            this.classesRepository.findById(id).ifPresent(
+                classesSet::add
+            )
+        );
+        return classesSet;
     }
 }

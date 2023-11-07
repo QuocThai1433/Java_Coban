@@ -25,12 +25,8 @@ public class Classes {
     @Column(name = "name")
     private String name;
     
-    @OneToMany(mappedBy = "classes")
     @Builder.Default
-    private List<Students> students = new ArrayList<>();
-    
-    @Builder.Default
-    @ManyToMany(mappedBy = "classesList")
+    @ManyToMany(mappedBy = "classesSet")
     private List<Teacher> teachers = new ArrayList<>();
     
 }

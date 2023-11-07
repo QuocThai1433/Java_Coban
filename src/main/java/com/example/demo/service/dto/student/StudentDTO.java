@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,7 +28,7 @@ public class StudentDTO {
     
     private float score;
     
-    private Date dateMonth;
+    private ZonedDateTime dateOfBirth;
     
-    private ClassesDTO classes;
+    private Set<ClassesDTO> classesList;
 }

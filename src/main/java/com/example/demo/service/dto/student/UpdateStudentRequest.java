@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,7 +22,7 @@ public class UpdateStudentRequest {
     
     private float score;
     
-    private Date dateMonth;
+    private ZonedDateTime dateOfBirth;
     
-    private Long classId;
+    private Set<Long> classIds;
 }

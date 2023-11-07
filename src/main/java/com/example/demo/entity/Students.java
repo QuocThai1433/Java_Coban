@@ -1,13 +1,16 @@
 package com.example.demo.entity;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "students")
 @Getter
@@ -21,22 +24,22 @@ public class Students {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "name")
     private String name;
     
-    @Column(name = "age")
     private int age;
     
-    @Column(name = "address")
     private String address;
     
-    @Column(name = "score")
     private float score;
     
-    @Column(name = "date_month")
-    private Date dateMonth;
+    private ZonedDateTime dateOfBirth;
     
-    @ManyToOne
-    @JoinColumn(name = "classes_id", updatable = false)
-    private Classes classes;
+    @Builder.Default
+    @ManyToMany
+    @JoinTable(
+        name = "rel_student_classes",
+        joinColumns = @JoinColumn(name = "student_id"),
+        inverseJoinColumns = @JoinColumn(name = "classes_id")
+    )
+    private Set<Classes> classesSet = new HashSet<>();
 }
