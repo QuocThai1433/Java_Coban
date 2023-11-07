@@ -5,4 +5,6 @@ import com.example.demo.service.dto.teacher.TeacherDTO;
 
 public interface ITeacherService {
     TeacherDTO create(CreateTeacherRequest request);
+    
+    TeacherDTO findById(Long id);
 }

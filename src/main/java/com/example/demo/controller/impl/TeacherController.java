@@ -17,7 +17,7 @@ public class TeacherController implements ITeacherController {
     
     @Override
     public ResponseEntity<TeacherDTO> findById(Long id) {
-        return null;
+        return ResponseEntity.ok(this.teacherService.findById(id));
     }
     
     @Override
