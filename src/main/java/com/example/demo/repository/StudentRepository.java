@@ -7,10 +7,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Repository
-public interface IStudentRepository extends JpaRepository<Students, Long> {
+public interface StudentRepository extends JpaRepository<Students, Long> {
     @Query(value = "SELECT * FROM students ORDER BY id ASC limit :count",
     nativeQuery = true)
     List<Students> studentList (@Param("count") Integer count);

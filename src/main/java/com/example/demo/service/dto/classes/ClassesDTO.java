@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.service.dto.classes;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -11,6 +11,7 @@ import java.util.UUID;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class ClassesDTO {
+    
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 

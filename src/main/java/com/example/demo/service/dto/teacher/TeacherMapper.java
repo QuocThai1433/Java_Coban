@@ -1,20 +1,18 @@
-package com.example.demo.dto.teacher;
+package com.example.demo.service.dto.teacher;
 
-import com.example.demo.dto.mapper.ClassesMapper;
+import com.example.demo.service.dto.classes.ClassesDTO;
 import com.example.demo.entity.Teacher;
 import com.example.demo.repository.ClassesRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
+@RequiredArgsConstructor
 public class TeacherMapper {
-    private final ClassesMapper classesMapper;
-    private final ClassesRepository classesRepository;
     
-    public TeacherMapper(ClassesMapper classesMapper,
-                         ClassesRepository classesRepository) {
-        this.classesMapper = classesMapper;
-        this.classesRepository = classesRepository;
-    }
+    private final ClassesRepository classesRepository;
     
     public TeacherDTO toDTO(Teacher teacher) {
         return TeacherDTO.builder()
@@ -22,14 +20,16 @@ public class TeacherMapper {
             .classesList(
                 teacher.getClassesList()
                     .stream()
-                    .map(this.classesMapper::toDto)
-                    .toList()
+                    .map(item -> ClassesDTO.builder()
+                        .id(item.getId())
+                        .name(item.getName())
+                        .build())
+                    .collect(Collectors.toList())
             )
             .build();
     }
     
     /**
-     * 
      * @param request CreateTeacherRequest
      * @return Teacher
      */

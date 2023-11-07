@@ -1,5 +1,6 @@
-package com.example.demo.dto.teacher;
+package com.example.demo.service.dto.teacher;
 
+import com.example.demo.service.dto.classes.ClassesDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,9 +12,10 @@ import java.util.List;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public class CreateTeacherRequest {
+public class TeacherDTO {
+    private Long id;
     
     private String name;
     
-    private List<Long> classIds;
+    private List<ClassesDTO> classesList;
 }

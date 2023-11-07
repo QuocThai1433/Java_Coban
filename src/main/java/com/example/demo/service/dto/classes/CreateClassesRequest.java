@@ -1,21 +1,18 @@
-package com.example.demo.dto.teacher;
+package com.example.demo.service.dto.classes;
 
-import com.example.demo.dto.ClassesDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public class TeacherDTO {
-    private Long id;
+public class CreateClassesRequest {
     
+    @NotBlank
     private String name;
-    
-    private List<ClassesDTO> classesList;
 }
