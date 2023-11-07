@@ -26,7 +26,7 @@ public class TeacherMapper {
                         .id(item.getId())
                         .name(item.getName())
                         .build())
-                    .collect(Collectors.toList())
+                    .collect(Collectors.toSet())
             )
             .build();
     }

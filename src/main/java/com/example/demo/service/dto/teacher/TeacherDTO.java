@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,5 +18,5 @@ public class TeacherDTO {
     
     private String name;
     
-    private List<ClassesDTO> classesList;
+    private Set<ClassesDTO> classesList;
 }
