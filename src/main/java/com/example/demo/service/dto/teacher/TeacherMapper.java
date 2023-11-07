@@ -1,8 +1,8 @@
 package com.example.demo.service.dto.teacher;
 
-import com.example.demo.service.dto.classes.ClassesDTO;
 import com.example.demo.entity.Teacher;
 import com.example.demo.repository.ClassesRepository;
+import com.example.demo.service.dto.classes.ClassesDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -40,7 +40,7 @@ public class TeacherMapper {
                 request.getClassIds()
                     .stream()
                     .map(id -> this.classesRepository.findById(id).orElse(null))
-                    .toList()
+                    .collect(Collectors.toList())
             )
             .build();
     }
