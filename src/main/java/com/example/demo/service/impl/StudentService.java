@@ -1,14 +1,15 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.service.mapper.StudentMapper;
-import com.example.demo.service.dto.student.CreateStudentRequest;
-import com.example.demo.service.dto.student.StudentDTO;
-import com.example.demo.service.dto.student.UpdateStudentRequest;
 import com.example.demo.entity.Classes;
 import com.example.demo.entity.Students;
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.repository.ClassesRepository;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.IStudentService;
+import com.example.demo.service.dto.student.CreateStudentRequest;
+import com.example.demo.service.dto.student.StudentDTO;
+import com.example.demo.service.dto.student.UpdateStudentRequest;
+import com.example.demo.service.mapper.StudentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +56,7 @@ public class StudentService implements IStudentService {
         return this.studentRepository.findById(id)
             .map(this.studentMapper::toDTO)
             .orElseThrow(
-                RuntimeException::new
+                () -> new BadRequestException("Student not found")
             );
     }
 }

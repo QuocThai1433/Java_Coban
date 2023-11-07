@@ -1,11 +1,12 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.Classes;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.repository.ClassesRepository;
+import com.example.demo.service.IClassesService;
 import com.example.demo.service.dto.classes.ClassesDTO;
 import com.example.demo.service.dto.classes.CreateClassesRequest;
 import com.example.demo.service.mapper.ClassesMapper;
-import com.example.demo.entity.Classes;
-import com.example.demo.repository.ClassesRepository;
-import com.example.demo.service.IClassesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class ClassesService implements IClassesService {
         return this.classesRepository.findById(classId)
             .map(this.classesMapper::toDTO)
             .orElseThrow(
-                RuntimeException::new
+                () -> new BadRequestException("Classes not found")
             );
     }
 }
