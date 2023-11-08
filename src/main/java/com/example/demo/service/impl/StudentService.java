@@ -62,9 +62,10 @@ public class StudentService implements IStudentService {
     private Set<Classes> buildClassesList(Set<Long> classIds) {
         Set<Classes> classesSet = new HashSet<>();
         classIds.forEach(id ->
-            this.classesRepository.findById(id).ifPresent(
-                classesSet::add
-            )
+            this.classesRepository.findById(id)
+                .ifPresent(
+                    classesSet::add // item -> classesSet.add(item)
+                )
         );
         return classesSet;
     }
