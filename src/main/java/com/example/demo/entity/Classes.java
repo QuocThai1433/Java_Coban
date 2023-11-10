@@ -7,8 +7,8 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "classes")
 @Getter
@@ -27,6 +27,6 @@ public class Classes {
     
     @Builder.Default
     @ManyToMany(mappedBy = "classesSet")
-    private List<Teacher> teachers = new ArrayList<>();
+    private Set<Teacher> teachers = new HashSet<>();
     
 }

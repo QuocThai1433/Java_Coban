@@ -8,13 +8,18 @@ import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.IStudentService;
 import com.example.demo.service.dto.student.CreateStudentRequest;
 import com.example.demo.service.dto.student.StudentDTO;
+import com.example.demo.service.dto.student.StudentFilter;
 import com.example.demo.service.dto.student.UpdateStudentRequest;
 import com.example.demo.service.mapper.StudentMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,7 +43,7 @@ public class StudentService implements IStudentService {
     @Override
     public StudentDTO update(Long id, UpdateStudentRequest request) {
         Students students = this.studentRepository.findById(id).orElseThrow(
-            RuntimeException::new
+            () -> new BadRequestException("Student not found")
         );
         
         Set<Classes> classesSet = this.buildClassesList(request.getClassIds());
@@ -57,6 +62,28 @@ public class StudentService implements IStudentService {
             .orElseThrow(
                 () -> new BadRequestException("Student not found")
             );
+    }
+    
+    @Override
+    @Transactional
+    public List<StudentDTO> getAll() {
+        return this.studentRepository.getAll().map(
+            item -> StudentDTO.builder()
+                .id(item.getId())
+                .name(item.getName())
+                .build()
+        ).collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<StudentDTO> query(StudentFilter filter, Pageable pageable) {
+        return this.studentRepository.query(
+                filter.getSearchTerm(),
+                filter.getAge(),
+                pageable
+            )
+            .map(this.studentMapper::toDTO)
+            .toList();
     }
     
     private Set<Classes> buildClassesList(Set<Long> classIds) {

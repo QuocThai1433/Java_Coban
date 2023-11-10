@@ -11,9 +11,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Table(name = "teacher")
+@Entity
 @Getter
 @Setter
-@Entity
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 public class Teacher {

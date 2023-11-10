@@ -1,12 +1,15 @@
 package com.example.demo.service.mapper;
 
+import com.example.demo.entity.Classes;
 import com.example.demo.service.dto.classes.ClassesDTO;
 import com.example.demo.service.dto.classes.CreateClassesRequest;
-import com.example.demo.entity.Classes;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ClassesMapper {
+    private final TeacherMapper teacherMapper;
     
     public Classes toCreateEntity(CreateClassesRequest request) {
         return Classes.builder()
@@ -14,11 +17,16 @@ public class ClassesMapper {
             .build();
     }
     
-    
     public ClassesDTO toDTO(Classes entity) {
         return ClassesDTO.builder()
             .id(entity.getId())
             .name(entity.getName())
+            .teachers(
+                MapperUtil.mapSet(
+                    entity.getTeachers(),
+                    this.teacherMapper::toDTO
+                )
+            )
             .build();
     }
 }
