@@ -24,7 +24,7 @@ public class Students {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private String name;
+    private String nameStudent;
     
     private int age;
     
@@ -42,4 +42,6 @@ public class Students {
         inverseJoinColumns = @JoinColumn(name = "classes_id")
     )
     private Set<Classes> classesSet = new HashSet<>();
+
+
 }

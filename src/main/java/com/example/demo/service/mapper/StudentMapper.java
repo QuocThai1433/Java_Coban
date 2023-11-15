@@ -18,7 +18,7 @@ public class StudentMapper {
     
     public Students toEntityForCreate(CreateStudentRequest request, Set<Classes> classesSet) {
         return Students.builder()
-            .name(request.getName())
+            .nameStudent(request.getName())
             .age(request.getAge())
             .address(request.getAddress())
             .score(request.getScore())
@@ -31,7 +31,7 @@ public class StudentMapper {
     public StudentDTO toDTO(Students entity) {
         return StudentDTO.builder()
             .id(entity.getId())
-            .name(entity.getName())
+            .name(entity.getNameStudent())
             .age(entity.getAge())
             .address(entity.getAddress())
             .dateOfBirth(entity.getDateOfBirth())
@@ -49,7 +49,7 @@ public class StudentMapper {
     
     public Students toEntityForUpdate(Students students, UpdateStudentRequest request, Set<Classes> classesList) {
         return students.toBuilder()
-            .name(request.getName())
+            .nameStudent(request.getName())
             .address(request.getAddress())
             .age(request.getAge())
             .score(request.getScore())

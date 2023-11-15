@@ -18,7 +18,7 @@ public class TeacherMapper {
     public TeacherDTO toDTO(Teacher teacher) {
         return TeacherDTO.builder()
             .id(teacher.getId())
-            .name(teacher.getName())
+            .name(teacher.getNameTeacher())
             .classesList(
                 teacher.getClassesSet()
                     .stream()
@@ -37,7 +37,7 @@ public class TeacherMapper {
      */
     public Teacher toEntityForCreate(CreateTeacherRequest request, Set<Classes> classesSet) {
         return Teacher.builder()
-            .name(request.getName())
+            .nameTeacher(request.getName())
             .classesSet(classesSet)
             .build();
     }

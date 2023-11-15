@@ -4,17 +4,22 @@ import com.example.demo.entity.Classes;
 import com.example.demo.entity.Students;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.repository.ClassesRepository;
-import com.example.demo.repository.StudentRepository;
+import com.example.demo.repository.studentrepo.StudentRepository;
 import com.example.demo.service.IStudentService;
 import com.example.demo.service.dto.student.CreateStudentRequest;
 import com.example.demo.service.dto.student.StudentDTO;
 import com.example.demo.service.dto.student.UpdateStudentRequest;
 import com.example.demo.service.mapper.StudentMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -68,5 +73,14 @@ public class StudentService implements IStudentService {
                 )
         );
         return classesSet;
+    }
+
+    @GetMapping("filter")
+    public List<StudentDTO> filter (@RequestParam String name, Pageable pePageable)
+    {
+        return this.studentRepository.studentFilter(name,pePageable)
+                .stream()
+                .map(studentMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }
