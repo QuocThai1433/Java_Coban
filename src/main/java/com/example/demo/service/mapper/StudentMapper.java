@@ -1,7 +1,7 @@
 package com.example.demo.service.mapper;
 
 import com.example.demo.entity.Classes;
-import com.example.demo.entity.Students;
+import com.example.demo.entity.Student;
 import com.example.demo.service.dto.student.CreateStudentRequest;
 import com.example.demo.service.dto.student.StudentDTO;
 import com.example.demo.service.dto.student.UpdateStudentRequest;
@@ -16,8 +16,8 @@ public class StudentMapper {
     
     private final ClassesMapper classesMapper;
     
-    public Students toEntityForCreate(CreateStudentRequest request, Set<Classes> classesSet) {
-        return Students.builder()
+    public Student toEntityForCreate(CreateStudentRequest request, Set<Classes> classesSet) {
+        return Student.builder()
             .name(request.getName())
             .age(request.getAge())
             .address(request.getAddress())
@@ -28,7 +28,7 @@ public class StudentMapper {
     }
     
     
-    public StudentDTO toDTO(Students entity) {
+    public StudentDTO toDTO(Student entity) {
         return StudentDTO.builder()
             .id(entity.getId())
             .name(entity.getName())
@@ -45,8 +45,8 @@ public class StudentMapper {
             .build();
     }
     
-    public Students toEntityForUpdate(Students students, UpdateStudentRequest request, Set<Classes> classesList) {
-        return students.toBuilder()
+    public Student toEntityForUpdate(Student student, UpdateStudentRequest request, Set<Classes> classesList) {
+        return student.toBuilder()
             .name(request.getName())
             .address(request.getAddress())
             .age(request.getAge())

@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.Classes;
-import com.example.demo.entity.Students;
+import com.example.demo.entity.Student;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.repository.ClassesRepository;
 import com.example.demo.repository.StudentRepository;
@@ -33,26 +33,26 @@ public class StudentService implements IStudentService {
     public StudentDTO create(CreateStudentRequest request) {
         Set<Classes> classes = this.buildClassesList(request.getClassIds());
         
-        Students students = this.studentMapper.toEntityForCreate(request, classes);
+        Student student = this.studentMapper.toEntityForCreate(request, classes);
         
-        students = this.studentRepository.save(students);
+        student = this.studentRepository.save(student);
         
-        return this.studentMapper.toDTO(students);
+        return this.studentMapper.toDTO(student);
     }
     
     @Override
     public StudentDTO update(Long id, UpdateStudentRequest request) {
-        Students students = this.studentRepository.findById(id).orElseThrow(
+        Student student = this.studentRepository.findById(id).orElseThrow(
             () -> new BadRequestException("Student not found")
         );
         
         Set<Classes> classesSet = this.buildClassesList(request.getClassIds());
         
-        students = this.studentMapper.toEntityForUpdate(students, request, classesSet);
+        student = this.studentMapper.toEntityForUpdate(student, request, classesSet);
         
-        students = this.studentRepository.save(students);
+        student = this.studentRepository.save(student);
         
-        return this.studentMapper.toDTO(students);
+        return this.studentMapper.toDTO(student);
     }
     
     @Override
