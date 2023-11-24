@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@RequestMapping("/api/v1/user/")
+@RequestMapping("api/v1/user")
 public interface IUserController {
     @PostMapping("login")
     @SecurityRequirements

@@ -8,7 +8,7 @@ spring:
   datasource:
     url: ${DATABASE_URL:jdbc:mysql://localhost:3306/student}
     username: ${DATABASE_USER:root}
-    password: ${DATABASE_PASSWORD:1234}
+    password: ${DATABASE_PASSWORD:FormosVN@123}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       pool-name: hikari-id
@@ -37,21 +37,23 @@ spring:
     oauth2:
       resource-server:
         jwt:
-          jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${PROFILE_REALM:qlsv}/protocol/openid-connect/certs
-          issuer-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${PROFILE_REALM:qlsv}
+          jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${KEY_CLOAK_PROFILE_REALM:java-basic}/protocol/openid-connect/certs
+          issuer-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${KEY_CLOAK_PROFILE_REALM:java-basic}
+
 keycloak:
   auth-server-url: ${KEYCLOAK_URI:http://localhost:8080}
-  realm: ${PROFILE_REALM:qlsv}
-  resource: ${BIZZONE_ID_CLIENT_ID:user_id}
+  realm: ${KEY_CLOAK_PROFILE_REALM:java-basic}
+  resource: ${KEY_CLOAK_CLIENT_ID:java-basic-client}
   credentials:
-    secret: ${BIZZONE_ID_CLIENT_SECRET:OS6O5EzR7QgCPgGuIQBD7xkpTMP0uwTF}
+    secret: ${KEY_CLOAK_CLIENT_SECRET:UcBmtQiDK4lwPbZZwFsD8g5cN1REjCHQ}
+
 common:
   permit-all-path-patterns:
     - /swagger-ui.html/**
     - /v3/api-docs/**
     - /swagger-ui/**
-    - /api/v1/user/login
-    - /api/v1/user/register
+    - /api/v1/user/login/**
+    - /api/v1/user/register/**
     - /test/**
   cors:
     origins:

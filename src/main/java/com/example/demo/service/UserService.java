@@ -22,31 +22,30 @@ public class UserService implements IUserService {
     public LoginResponse login(LoginRequest request) {
         AccessTokenResponse accessTokenResponse = iKeycloakService.token(request.getUserName(), request.getPassword());
         return LoginResponse.builder()
-                .token(accessTokenResponse.getToken())
-                .expiresIn(accessTokenResponse.getExpiresIn())
-                .refreshToken(accessTokenResponse.getRefreshToken())
-                .refreshExpiresIn(accessTokenResponse.getRefreshExpiresIn())
-                .sessionState(accessTokenResponse.getSessionState())
-                .build();
+            .token(accessTokenResponse.getToken())
+            .expiresIn(accessTokenResponse.getExpiresIn())
+            .refreshToken(accessTokenResponse.getRefreshToken())
+            .refreshExpiresIn(accessTokenResponse.getRefreshExpiresIn())
+            .sessionState(accessTokenResponse.getSessionState())
+            .build();
     }
 
     @Override
     public RegisterResponse register(RegisterRequest request) {
         UUID userId = iKeycloakService.register(request);
         Users user = Users.builder()
-                .keycloakId(userId)
-                .firstName(request.getFistName())
-                .lastName(request.getLastName())
-                .email(request.getEmail())
-                .phoneNumber(request.getPhoneNumber())
-            //    .type(UserType.NORMAL)
-                .build();
+            .keycloakId(userId)
+            .firstName(request.getFistName())
+            .lastName(request.getLastName())
+            .email(request.getEmail())
+            .phoneNumber(request.getPhoneNumber())
+            .build();
 
         userRepository.save(user);
 
         return RegisterResponse.builder()
-                .userId(userId)
-                .build();
+            .userId(userId)
+            .build();
     }
 
     @Override

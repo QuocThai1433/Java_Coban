@@ -13,10 +13,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 import java.util.Objects;
 
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 public class CustomSecurityConfiguration {
-    private final com.example.demo.config.CommonProperties commonProperties;
+    private final CommonProperties commonProperties;
 
     public CustomSecurityConfiguration(CommonProperties commonProperties) {
         this.commonProperties = commonProperties;
@@ -26,23 +26,14 @@ public class CustomSecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        //
-        corsConfig(http);
-        //
-        permitAll(http);
-
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        this.corsConfig(http);
+        this.permitAll(http);
         http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
-
         return http.build();
     }
 
-    /**
-     * @param http
-     * @throws Exception
-     */
     private void permitAll(HttpSecurity http) throws Exception {
         if (!Objects.isNull(commonProperties.getPermitAllPathPatterns())) {
             for (String path : commonProperties.getPermitAllPathPatterns()) {
@@ -53,17 +44,12 @@ public class CustomSecurityConfiguration {
         http.authorizeHttpRequests().anyRequest().authenticated();
     }
 
-    /**
-     * @param http
-     * @throws Exception
-     */
     private void corsConfig(HttpSecurity http) throws Exception {
         CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowCredentials(true);
-        if (!Objects.isNull(commonProperties.getCors().getOrigins())) {
+        configuration.setAllowCredentials(true);
+        if (Objects.nonNull(commonProperties.getCors().getOrigins())) {
             configuration.setAllowedOrigins(commonProperties.getCors().getOrigins());
         }
-
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
 

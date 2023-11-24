@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Table(name = "students")
+@Table(name = "student")
 @Getter
 @Setter
 @Entity
