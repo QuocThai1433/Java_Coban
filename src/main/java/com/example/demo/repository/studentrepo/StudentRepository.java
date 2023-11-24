@@ -11,19 +11,20 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StudentRepository extends JpaRepository<Students, Long> {
 
-    @Query(
-            "select s " +
-                    "from Students s " +
-                    "where (:searchTerm is null or concat(s.nameStudent, s.address) like concat('%', :searchTerm, '%')) " +
-                    "and (:age is null or s.age = :age)"
-    )
-    Page<Students> getPageByFilter(
-            @Param("searchTerm") String searchTerm,
-            @Param("age") Integer age,
-            Pageable pageable
-    );
 
-    @Query(value = "SELECT st.*,tc.class_id,t.name_teacher " +
+//    @Query(
+//            "select st " +
+//                    "from Students st " +
+//                    "where (:searchTerm is null or concat(st.name, st.address) like concat('%', :searchTerm, '%')) " +
+//                    "and (:age is null or s.age = :age)"
+//    )
+//    Page<Students> getPageByFilter(
+//            @Param("searchTerm") String searchTerm,
+//            @Param("age") Integer age,
+//            Pageable pageable
+//    );
+
+    @Query(value = "SELECT st.*,t.name, count(sc.classes_id) as countId " +
             "FROM students st " +
             "left join rel_student_classes sc  " +
             "on st.id = sc.student_id   " +
@@ -33,7 +34,9 @@ public interface StudentRepository extends JpaRepository<Students, Long> {
             "on sc.classes_id = tc.class_id  " +
             "left join teacher t  " +
             "on tc.teacher_id = t.id " +
-            "where if(:name is null, true, name_student like concat('%', :name, '%')) " ,
+            "where if(:name is null, true , concat(st.name,c.name,coalesce(t.name,'')) like concat('%',  :name , '%'))" +
+            "group by st.*,t.name " +
+            "having count(sc.classes_id)",
             nativeQuery = true,
             countQuery = "select count(*)" +
                     "FROM students st " +
@@ -45,7 +48,10 @@ public interface StudentRepository extends JpaRepository<Students, Long> {
                     "on sc.classes_id = tc.class_id  " +
                     "left join teacher t  " +
                     "on tc.teacher_id = t.id " +
-                    "where if(:name is null, true, name_student like concat('%', :name, '%')) ")
-    Page<Students> studentFilter(@Param("name") String name, Pageable pageable);
+                    "where if(:name is null, true,  concat(st.name , c.name , coalesce(t.name,'')) like concat('%', :name , '%') " +
+                    "group by st.*,t.name " +
+                    "having count(sc.classes_id) ")
+    Page<Students> studentFilter(@Param("name") String name, Pageable pageable)
+            ;
 
 }

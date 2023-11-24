@@ -33,9 +33,27 @@ spring:
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-#  security:
-#    oauth2:
-#      resource-server:
-#        jwt:
-#          jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${PROFILE_REALM:thai_realm}/protocol/openid-connect/certs
-#          issuer-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${PROFILE_REALM:thai_realm}
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${PROFILE_REALM:qlsv}/protocol/openid-connect/certs
+          issuer-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${PROFILE_REALM:qlsv}
+keycloak:
+  auth-server-url: ${KEYCLOAK_URI:http://localhost:8080}
+  realm: ${PROFILE_REALM:qlsv}
+  resource: ${BIZZONE_ID_CLIENT_ID:user_id}
+  credentials:
+    secret: ${BIZZONE_ID_CLIENT_SECRET:OS6O5EzR7QgCPgGuIQBD7xkpTMP0uwTF}
+common:
+  permit-all-path-patterns:
+    - /swagger-ui.html/**
+    - /v3/api-docs/**
+    - /swagger-ui/**
+    - /api/v1/user/login
+    - /api/v1/user/register
+    - /test/**
+  cors:
+    origins:
+      - http://localhost:8081
+      - http://localhost:3000

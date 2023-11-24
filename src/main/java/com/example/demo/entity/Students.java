@@ -24,7 +24,7 @@ public class Students {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private String nameStudent;
+    private String name;
     
     private int age;
     
