@@ -31,7 +31,7 @@ public class KeycloakService implements IKeycloakService {
 
     public KeycloakService(KeycloakSpringBootProperties properties) {
         this.authzClient = AuthzClient.create(
-                new Configuration(
+                 new Configuration(
                         properties.getAuthServerUrl(),
                         properties.getRealm(),
                         properties.getResource(),

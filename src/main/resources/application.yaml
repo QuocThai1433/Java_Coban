@@ -33,18 +33,21 @@ spring:
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+
+
+
   security:
     oauth2:
       resource-server:
         jwt:
-          jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${PROFILE_REALM:qlsv}/protocol/openid-connect/certs
-          issuer-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${PROFILE_REALM:qlsv}
+          jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${PROFILE_REALM:student}/protocol/openid-connect/certs
+          issuer-uri: ${KEYCLOAK_URI:http://localhost:8080}/realms/${PROFILE_REALM:student}
 keycloak:
   auth-server-url: ${KEYCLOAK_URI:http://localhost:8080}
-  realm: ${PROFILE_REALM:qlsv}
+  realm: ${PROFILE_REALM:student}
   resource: ${BIZZONE_ID_CLIENT_ID:user_id}
   credentials:
-    secret: ${BIZZONE_ID_CLIENT_SECRET:OS6O5EzR7QgCPgGuIQBD7xkpTMP0uwTF}
+    secret: ${BIZZONE_ID_CLIENT_SECRET:U1ujp8s52uc2JoUgzjvUp35MgHvyBlMD}
 common:
   permit-all-path-patterns:
     - /swagger-ui.html/**
@@ -57,3 +60,11 @@ common:
     origins:
       - http://localhost:8081
       - http://localhost:3000
+minio:
+  endpoint: ${MINIO_ENDPOINT:http://127.0.0.1:9090}
+  accessKey: ${MINIO_ACCESS_KEY:admin}
+  secretKey: ${MINIO_SECRET_KEY:12345678}
+  fileHost: ${MINIO_FILE_HOST:http://127.0.0.1:9001}
+  expiredDefault: ${EXPIRED:60}
+
+
